@@ -60,12 +60,12 @@ export default function NavBar() {
               </ul>
 
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                <li className="nav-item d-flex align-items-center">
+                <ul className="nav-item d-flex align-items-center">
                   <li className="fab fa-facebook mx-2"></li>
                   <li className="fab fa-twitter mx-2"></li>
                   <li className="fab fa-instagram mx-2"></li>
                   <li className="fab fa-tiktok mx-2"></li>
-                </li>
+                </ul>
 
                 <li className="nav-item">
                   <NavLink className="nav-link" to="Login">

@@ -9,6 +9,7 @@ import NotFound from "./Components/NotFound/NotFound";
 import Products from "./Components/Products/Products";
 import Register from "./Components/Register/Register";
 import Catgories from "./Components/Catgories/Catgories";
+
 //Importing and Routing
 
 let Routers = createBrowserRouter([

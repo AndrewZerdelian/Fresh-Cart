@@ -1,33 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 //import Style from "./Register.module.css";
 import { useFormik } from "formik";
 import * as YUP from "yup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { ThreeDots } from "react-loader-spinner";
 export default function Register() {
   let navigate = useNavigate();
 
-  async function SubmitRegister(values) {
-    try {
-      let { data } = await axios.post(
-        `https://ecommerce.routemisr.com/api/v1/auth/signup`,
-        values
-      );
-  
-      if (data.message === "success") {
-        navigate("/login");
-      } else {
-        // Handle other cases if needed
-      }
-  
-      console.log(values);
-    } catch (err) {
-      console.error(err);
+  const [Error, setError] = useState(null);
+
+  const [IsLoading, setIsLoading] = useState(false);
+
+  async function SubmitRegister(value) {
+    setIsLoading(true);
+    const { data } = await axios
+      .post(`https://ecommerce.routemisr.com/api/v1/auth/signup`, value)
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err.response.data.message);
+        //console.log(err.response.data.message)
+      });
+
+    if (data.message === "success") {
+      navigate("/login");
     }
   }
-  
-
 
   const EgyptianPhoneNumberRegex = /^(010|011|012|015)[0-9]{8}$/;
 
@@ -65,9 +63,15 @@ export default function Register() {
   });
   // {Form.errors.name && Form.touched.name ? <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>: "" }
   //{Form.errors.name && Form.touched.name && <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>}
-  
+
   return (
-    <main>
+    <main className="w-75 mx-auto py-4">
+      <h2 className="mx-auto">REGISTERATION FORM </h2>
+      {Error ? (
+        <div className="alert p-2 mt-2 alert-danger w-75 mx-auto">{Error}</div>
+      ) : (
+        ""
+      )}
       <form onSubmit={Form.handleSubmit} className="w-25 mx-auto mt-5">
         <div className="mb-3">
           <input
@@ -165,15 +169,51 @@ export default function Register() {
         </div>
 
         <div className="col-auto">
-          <button
-            disabled={!(Form.isValid && Form.dirty)}
-            type="submit"
-            className="btn btn-primary mb-3"
-          >
-            Submit
-          </button>
+          {IsLoading ? (
+            <button disabled={!(Form.isValid && Form.dirty)} type="button">
+              <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#4fa94d"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </button>
+          ) : (
+            <button
+              disabled={!(Form.isValid && Form.dirty)}
+              type="submit"
+              className="btn btn-primary mb-3"
+            >
+              Submit
+            </button>
+          )}
         </div>
       </form>
     </main>
   );
 }
+
+/**
+ *   async function SubmitRegister(values) {
+    try {
+      let { data } = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/auth/signup`,
+        values
+      );
+  
+      if (data.message === "success") {
+        navigate("/login");
+      } else {
+        
+      }
+  
+      console.log(values);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+ */

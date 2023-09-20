@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
+import { useContext } from "react";
+import { userContext } from "../../Context/UserContext";
 //import Style from "./NavBar.module.css";
 
 export default function NavBar() {
+  let { UserToken } = useContext(userContext);
   return (
     <div>
       <div>
@@ -28,35 +31,41 @@ export default function NavBar() {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link active"
-                    aria-current="page"
-                    href="/"
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="Products">
-                    Products
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="Catgories">
-                    Catgories
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="Brands">
-                    Brands
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="Cart">
-                    Cart
-                  </NavLink>
-                </li>
+                {UserToken !== null ? (
+                  <div>
+                    <li className="nav-item">
+                      <NavLink
+                        className="nav-link active"
+                        aria-current="page"
+                        href="/"
+                      >
+                        Home
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="Products">
+                        Products
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="Catgories">
+                        Catgories
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="Brands">
+                        Brands
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="Cart">
+                        Cart
+                      </NavLink>
+                    </li>
+                  </div>
+                ) : (
+                  ""
+                )}
               </ul>
 
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
@@ -79,11 +88,18 @@ export default function NavBar() {
                   </NavLink>
                 </li>
 
-                <li className="nav-item">
-                  <NavLink className="nav-link" href="/">
-                    Logout
-                  </NavLink>
-                </li>
+                {UserToken !== null ? (
+                  <div>
+                    {" "}
+                    <li className="nav-item">
+                      <NavLink className="nav-link" href="/">
+                        Logout
+                      </NavLink>
+                    </li>
+                  </div>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
           </div>

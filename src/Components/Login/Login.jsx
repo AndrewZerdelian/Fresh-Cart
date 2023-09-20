@@ -4,13 +4,16 @@ import * as YUP from "yup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+import { useContext } from "react";
+import { userContext } from "../../Context/UserContext";
+
 export default function Register() {
   let navigate = useNavigate();
 
   const [Error, setError] = useState(null);
 
   const [IsLoading, setIsLoading] = useState(false);
-
+  let {setUserToken} = useContext(userContext)
   async function SubmitLogin(value) {
     setIsLoading(true);
     const { data } = await axios
@@ -22,6 +25,9 @@ export default function Register() {
       });
 
     if (data.message === "success") {
+      setIsLoading(false);
+      localStorage.setItem('userToken',data.token)
+      setUserToken(data.token)
       navigate("/Home");
     }
   }

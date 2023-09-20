@@ -2,11 +2,32 @@ import React from "react";
 //import Style from "./Register.module.css";
 import { useFormik } from "formik";
 import * as YUP from "yup";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
-  function SubmitRegister(values) {
-    console.log(values);
+  let navigate = useNavigate();
+
+  async function SubmitRegister(values) {
+    try {
+      let { data } = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/auth/signup`,
+        values
+      );
+  
+      if (data.message === "success") {
+        navigate("/login");
+      } else {
+        // Handle other cases if needed
+      }
+  
+      console.log(values);
+    } catch (err) {
+      console.error(err);
+    }
   }
+  
+
 
   const EgyptianPhoneNumberRegex = /^(010|011|012|015)[0-9]{8}$/;
 
@@ -44,6 +65,7 @@ export default function Register() {
   });
   // {Form.errors.name && Form.touched.name ? <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>: "" }
   //{Form.errors.name && Form.touched.name && <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>}
+  
   return (
     <main>
       <form onSubmit={Form.handleSubmit} className="w-25 mx-auto mt-5">

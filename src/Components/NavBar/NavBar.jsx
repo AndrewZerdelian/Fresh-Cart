@@ -10,9 +10,10 @@ export default function NavBar() {
   let navigate = useNavigate()
 
   function LogOut() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("UserToken");
     setUserToken(null)
     navigate('/login')
+    
   }
   return (
     <div>
@@ -85,9 +86,9 @@ export default function NavBar() {
                   <div className="navbar-nav ms-auto  mb-2 mb-lg-0 ">
                     {" "}
                     <li className="nav-item">
-                      <NavLink className="nav-link" href="/" onClick={LogOut}>
+                      <span className="nav-link cursor-pointer" href="/" onClick={LogOut}>
                         Logout
-                      </NavLink>
+                      </span>
                     </li>
                   </div>
                 ) : (

@@ -10,7 +10,7 @@ import Products from "./Components/Products/Products";
 import Register from "./Components/Register/Register";
 import Catgories from "./Components/Catgories/Catgories";
 import UserContextProvider, { userContext } from "./Context/UserContext";
-
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 //Importing and Routing
 
 let Routers = createBrowserRouter([
@@ -18,11 +18,11 @@ let Routers = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "Layout", element: <Layout /> },
+      { index: true, element:  <ProtectedRoute><Home/></ProtectedRoute> },
+      { path: "Layout", element: <ProtectedRoute><Layout /></ProtectedRoute>  },
       { path: "Login", element: <Login /> },
       { path: "Brands", element: <Brands /> },
-      { path: "Cart", element: <Cart /> },
+      { path: "Cart", element: <ProtectedRoute><Cart /></ProtectedRoute>  },
       { path: "Products", element: <Products /> },
       { path: "Register", element: <Register /> },
       { path: "Catgories", element: <Catgories /> },

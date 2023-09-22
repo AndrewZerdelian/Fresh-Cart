@@ -13,7 +13,7 @@ export default function Register() {
   const [Error, setError] = useState(null);
 
   const [IsLoading, setIsLoading] = useState(false);
-  let {setUserToken} = useContext(userContext)
+  let { setUserToken } = useContext(userContext);
   async function SubmitLogin(value) {
     setIsLoading(true);
     const { data } = await axios
@@ -26,8 +26,8 @@ export default function Register() {
 
     if (data.message === "success") {
       setIsLoading(false);
-      localStorage.setItem('userToken',data.token)
-      setUserToken(data.token)
+      localStorage.setItem("UserToken", data.token);
+      setUserToken(data.token);
       navigate("/Home");
     }
   }
@@ -67,9 +67,6 @@ export default function Register() {
         ""
       )}
       <form onSubmit={Form.handleSubmit} className="w-25 mx-auto mt-5">
-  
-
-
         <div className="mb-3">
           <input
             value={Form.values.email}
@@ -89,8 +86,6 @@ export default function Register() {
           )}
         </div>
 
-
-
         <div className="mb-3">
           <input
             value={Form.values.password}
@@ -109,8 +104,6 @@ export default function Register() {
             ""
           )}
         </div>
-
-
 
         <div className="col-auto">
           {IsLoading ? (

@@ -40,3 +40,5 @@ export default function App() {
     </UserContextProvider>
   );
 }
+
+//new fixes Friday

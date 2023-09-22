@@ -1,6 +1,8 @@
 import React from "react";
-import Style from "./Home.module.css";
-
+//import Style from "./Home.module.css";
+import FeaturedProducts from "../FeaturedProducts/FeaturedProducts";
 export default function Home() {
-  return <div>Home</div>;
+  return <div>
+  <FeaturedProducts/>
+  Home</div>;
 }

@@ -32,7 +32,6 @@ let Routers = createBrowserRouter([
 ]);
 
 export default function App() {
-
   return (
     <UserContextProvider>
       <div>
@@ -42,4 +41,3 @@ export default function App() {
   );
 }
 
-//hello world

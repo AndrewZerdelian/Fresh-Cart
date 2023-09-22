@@ -1,12 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
 import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
 //import Style from "./NavBar.module.css";
 
 export default function NavBar() {
-  let { UserToken } = useContext(userContext);
+  let navigate = useNavigate();
+  let { UserToken, setUserToken } = useContext(userContext);
+  function Logout() {
+    localStorage.removeItem("UserToken");
+    setUserToken(null);
+    navigate("/Login");
+  }
   return (
     <div>
       <div>
@@ -78,9 +84,9 @@ export default function NavBar() {
                   <div className="navbar-nav ms-auto  mb-2 mb-lg-0 ">
                     {" "}
                     <li className="nav-item">
-                      <NavLink className="nav-link" href="/">
+                      <button onClick={Logout} className="nav-link" href="/">
                         Logout
-                      </NavLink>
+                      </button>
                     </li>
                   </div>
                 ) : (

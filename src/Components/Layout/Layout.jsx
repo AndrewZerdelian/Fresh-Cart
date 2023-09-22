@@ -10,8 +10,8 @@ export default function Layout() {
   let { setUserToken } = useContext(userContext);
 
   useEffect(() => {
-    if (localStorage.getItem("userToken") !== null) {
-      setUserToken(localStorage.getItem("userToken"));
+    if (localStorage.getItem("UserToken") !== null) {
+      setUserToken(localStorage.getItem("UserToken"));
     } else {
     }
   }, []);

@@ -28,7 +28,7 @@ export default function Register() {
       setIsLoading(false);
       localStorage.setItem("UserToken", data.token);
       setUserToken(data.token);
-      navigate("/Home");
+      navigate("/");
     }
   }
 

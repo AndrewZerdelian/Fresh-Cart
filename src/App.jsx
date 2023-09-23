@@ -9,8 +9,9 @@ import NotFound from "./Components/NotFound/NotFound";
 import Products from "./Components/Products/Products";
 import Register from "./Components/Register/Register";
 import Catgories from "./Components/Catgories/Catgories";
-import UserContextProvider, { userContext } from "./Context/UserContext";
+import UserContextProvider from "./Context/UserContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import FeaturedDetails from "./Components/FeaturedDetails/FeaturedDetails";
 
 //Importing and Routing
 
@@ -27,14 +28,13 @@ let Routers = createBrowserRouter([
       { path: "Products", element: <ProtectedRoute> <Products /></ProtectedRoute> },
       { path: "Register", element:  <Register /> },
       { path: "Catgories", element: <ProtectedRoute> <Catgories /> </ProtectedRoute>  },
+      { path: "FeaturedDetails/:id", element: <ProtectedRoute> <FeaturedDetails /> </ProtectedRoute>  },
       { path: "*", element: <NotFound /> },
     ],
   },
 ]);
-
 export default function App() {
   return (
-    
     <UserContextProvider>
       <div>
         <RouterProvider router={Routers}></RouterProvider>
@@ -42,4 +42,3 @@ export default function App() {
     </UserContextProvider>
   );
 }
-

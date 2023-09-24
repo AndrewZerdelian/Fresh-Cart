@@ -30,9 +30,9 @@ export default function FeaturedDetails() {
           <div className="row py-2 align-items-center">
             <div className="col-md-4 ">
               <Slider {...settings}>
-                {data.data.data.images.map((img) => (
-                  <div key={img.id}>
-                    <img className="w-100 container" src={img} alt="images" />
+                {data.data.data.images.map((img,index) => (
+                  <div key={index} >
+                    <img  className="w-100 container" src={img} alt="images" />
                   </div>
                 ))}
               </Slider>

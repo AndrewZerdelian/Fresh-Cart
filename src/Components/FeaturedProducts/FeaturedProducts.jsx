@@ -4,13 +4,23 @@ import { useQuery } from "react-query";
 //import Style from "./FeaturedProducts.module.css";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../CartContext/CartContext";
 
 export default function FeaturedProducts() {
+  let { AddToOCart } = useContext(CartContext);
+
+  async function Addproduct(productId) {
+    let response = await AddToOCart(productId);
+    console.log(response);
+  }
+
   function GetFeaturedProducts() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
   //refetch isError
-  const { isLoading, data, isFetching } = useQuery(
+  //isFetching
+  const { isLoading, data } = useQuery(
     "FeaturedProducts",
     GetFeaturedProducts,
     {
@@ -53,10 +63,14 @@ export default function FeaturedProducts() {
                       {product.ratingsAverage}
                     </span>
                   </div>
-                  <button className="btn bg-main text-white w-100 btn-sm">
-                    Add Item
-                  </button>
                 </Link>
+
+                <button
+                  onClick={() => Addproduct(product.id)}
+                  className="btn bg-main text-white w-100 btn-sm"
+                >
+                  Add Item
+                </button>
               </div>
             ))}
           </div>

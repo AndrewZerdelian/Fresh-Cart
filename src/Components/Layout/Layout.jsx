@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import Style from "./Layout.module.css";
 
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { userContext } from "../../Context/UserContext";
+import { Offline, Online } from "react-detect-offline";
 
 export default function Layout() {
   let { setUserToken } = useContext(userContext);
@@ -18,9 +18,16 @@ export default function Layout() {
 
   return (
     <div>
-      <NavBar />
-      <Outlet />
-      <Footer />
+      <Offline>
+        <h2>
+          you are currently offline <br /> Check your internet connection
+        </h2>
+      </Offline>
+      <Online>
+        <NavBar />
+        <Outlet />
+        <Footer />
+      </Online>
     </div>
   );
 }

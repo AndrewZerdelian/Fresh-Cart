@@ -12,6 +12,7 @@ export default function CategorySlider() {
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
+    autoplay: true,
   };
 
   function GetCategories() {
@@ -28,7 +29,7 @@ export default function CategorySlider() {
       {data?.data.data ? (
         <Slider {...settings}>
           {data?.data.data.map((category) => (
-            <div key={category._id} className="container py-3">
+            <div key={category._id} className="container py-5">
               <img
                 src={category.image}
                 className="w-100 "
@@ -41,7 +42,6 @@ export default function CategorySlider() {
       ) : (
         ""
       )}
-      CategorySlider
     </div>
   );
 }

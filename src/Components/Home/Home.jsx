@@ -9,7 +9,6 @@ export default function Home() {
       <MainSlider />
       <CategorySlider />
       <FeaturedProducts />
-      Home
     </div>
   );
 }

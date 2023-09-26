@@ -14,6 +14,7 @@ export default function Register() {
 
   const [IsLoading, setIsLoading] = useState(false);
   let { setUserToken } = useContext(userContext);
+
   async function SubmitLogin(value) {
     setIsLoading(true);
     const { data } = await axios

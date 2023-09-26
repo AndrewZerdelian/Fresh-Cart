@@ -8,6 +8,7 @@ import { userContext } from "../../Context/UserContext";
 export default function NavBar() {
   let navigate = useNavigate();
   let { UserToken, setUserToken } = useContext(userContext);
+
   function Logout() {
     localStorage.removeItem("UserToken");
     setUserToken(null);
@@ -112,5 +113,3 @@ export default function NavBar() {
     </div>
   );
 }
-
-

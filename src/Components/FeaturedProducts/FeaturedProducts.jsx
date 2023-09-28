@@ -6,13 +6,21 @@ import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../CartContext/CartContext";
+import toast from "react-hot-toast";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-    console.log(response);
+    if (response.data.status === "success") {
+      toast.success("Item added successfully", {
+        duration: 5000,
+      });
+    } else {
+      toast.error("Error adding product: ");
+    }
+    //console.log(response); // betbain el product
   }
 
   function GetFeaturedProducts() {
@@ -29,6 +37,8 @@ export default function FeaturedProducts() {
       //refetchInterval:3000 // for multiple refreshes
     }
   );
+
+  //console.log(data?.data.data.product);
 
   return (
     <main>

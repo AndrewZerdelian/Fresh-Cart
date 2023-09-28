@@ -14,6 +14,7 @@ export default function Register() {
 
   const [IsLoading, setIsLoading] = useState(false);
   let { setUserToken } = useContext(userContext);
+
   async function SubmitLogin(value) {
     setIsLoading(true);
     const { data } = await axios
@@ -28,6 +29,9 @@ export default function Register() {
       setIsLoading(false);
       localStorage.setItem("UserToken", data.token);
       setUserToken(data.token);
+      console.log(data);
+      console.log(data.token);
+
       navigate("/");
     }
   }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { InfinitySpin } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -25,14 +26,19 @@ export default function FeaturedDetails() {
 
   return (
     <main className=" w-75 ">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Products Details</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div>
         {data?.data.data ? (
           <div className="row py-2 align-items-center">
             <div className="col-md-4 ">
               <Slider {...settings}>
-                {data.data.data.images.map((img,index) => (
-                  <div key={index} >
-                    <img  className="w-100 container" src={img} alt="images" />
+                {data.data.data.images.map((img, index) => (
+                  <div key={index}>
+                    <img className="w-100 container" src={img} alt="images" />
                   </div>
                 ))}
               </Slider>

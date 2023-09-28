@@ -22,7 +22,7 @@ export default function CategorySlider() {
     "CategorySlider", // Rename the query key
     GetCategories // Use the function that fetches data
   );
-  console.log(data?.data.data);
+  //console.log(data?.data.data);
 
   return (
     <div>

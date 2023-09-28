@@ -13,6 +13,7 @@ import UserContextProvider from "./Context/UserContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import FeaturedDetails from "./Components/FeaturedDetails/FeaturedDetails";
 import CreateContextProvider from "./Components/CartContext/CartContext";
+import  { Toaster } from 'react-hot-toast';
 
 //Importing and Routing
 
@@ -89,6 +90,7 @@ export default function App() {
           <RouterProvider router={Routers}></RouterProvider>
         </div>
       </UserContextProvider>
+      <Toaster/>
     </CreateContextProvider>
   );
 }

@@ -4,9 +4,10 @@ import React, { createContext } from "react";
 export const CartContext = createContext();
 
 export default function CreateContextProvider(props) {
-  const headers = {
-    token: localStorage.getItem("UserToken"),
-  };
+  const UserToken = localStorage.getItem("UserToken");
+  const headers = { token: UserToken };
+
+  //klmit token de billzat gaya mn post man copy paste 3ashan el backend mi7tag y2raha
 
   function AddToOCart(x) {
     return axios
@@ -16,15 +17,24 @@ export default function CreateContextProvider(props) {
           productId: x,
         },
         {
-          headers: headers,
+          headers,
         }
       )
       .then((response) => response)
       .catch((err) => err);
   }
 
+  async function getLoggedUserCart() {
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/cart`, {
+      headers: headers,
+    })
+    .then((response) => response)
+    .catch((err) => err);
+    
+  }
+
   return (
-    <CartContext.Provider value={{ AddToOCart }}>
+    <CartContext.Provider value={{ AddToOCart, getLoggedUserCart }}>
       {props.children}
     </CartContext.Provider>
   );
@@ -106,3 +116,24 @@ export default function CartContextProvider(props) {
 }
 
  */
+
+/**
+  *   const headers = {
+    token: localStorage.getItem("UserToken"), 
+  };
+  */
+
+/**
+   *     try {
+      const { data } = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        {
+          headers: headers,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+   * 
+   */

@@ -25,16 +25,74 @@ export default function CreateContextProvider(props) {
   }
 
   async function getLoggedUserCart() {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/cart`, {
-      headers: headers,
-    })
-    .then((response) => response)
-    .catch((err) => err);
-    
+    return axios
+      .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
+        headers: headers,
+      })
+      .then((response) => response)
+      .catch((err) => err);
   }
 
+  async function UpdateCartProductQuantity(productID) {
+    try {
+      const response = await axios.put(
+        `https://ecommerce.routemisr/api/v1/cart/`,
+        {
+          count: productID,
+        },
+        {
+          HEADERS: headers,
+        }
+      );
+      if (response.status === 200) {
+        console.log("Product quantity updated successfully.");
+      } else {
+        console.error("Failed to update product quantity.");
+      }
+    } catch (error) {
+      console.log("Errors FROM UpdateCartProductQuantity");
+    }
+  }
+
+
+    async function RemoveCartItem(productID) {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
+        headers,
+      })
+      .then((response) => response)
+      .catch((error) => error);
+  }
+  
+  /** 
+    async function RemoveCartItem(productID) {
+    try {
+      const response = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productID}`,
+
+        {
+          headers,
+        }
+      );
+      if (response.status === 200) {
+        console.log("Product quantity updated successfully.");
+      } else {
+        console.error("Failed to update product quantity.");
+      }
+    } catch (error) {
+      console.log("Errors FROM RemoveCartItem",error);
+    }
+  }
+ */
   return (
-    <CartContext.Provider value={{ AddToOCart, getLoggedUserCart }}>
+    <CartContext.Provider
+      value={{
+        AddToOCart,
+        getLoggedUserCart,
+        UpdateCartProductQuantity,
+        RemoveCartItem,
+      }}
+    >
       {props.children}
     </CartContext.Provider>
   );

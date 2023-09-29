@@ -1,22 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
-
 //import Style from "./Cart.module.css";
 
-//
+
 export default function Cart() {
-  let { getLoggedUserCart } = useContext(CartContext);
+  let { getLoggedUserCart, RemoveCartItem, UpdateCartProductQuantity } =
+    useContext(CartContext);
+
   const [CartDetails, setCartDetails] = useState(null);
 
   async function getCart() {
     const { data } = await getLoggedUserCart();
     setCartDetails(data);
-    console.log(data);
+    //console.log(data);
   }
-
+  //////////////////
+  async function DeletedItems(productID) {
+    const { data } = await RemoveCartItem(productID);
+    setCartDetails(data);
+  }
   useEffect(() => {
     getCart();
   }, []);
+
+  /**async function DeletedItems(productID) {
+    try {
+      const response = await RemoveCartItem(productID);
+  
+      // Check if the response is an error (if it has an 'error' property, for example)
+      if (response.error) {
+        console.error('Error:', response.error);
+        // Handle the error here, e.g., show an error message to the user
+      } else {
+        // Assuming the response is successful, update the state with the data
+        setCartDetails(response);
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      // Handle other errors (e.g., network errors) here
+    }
+  }
+  */
 
   return (
     <main>
@@ -28,7 +52,7 @@ export default function Cart() {
               Cart Items : {CartDetails.numOfCartItems}
             </h4>
             <h4 className="h6 text-main fw-bolder md-4">
-              Total Price {CartDetails.data.totalCartPrice} EGP{" "}
+              Total Price {CartDetails.data.totalCartPrice} EGP
             </h4>
             {CartDetails.data.products.map((product) => (
               <div
@@ -58,7 +82,10 @@ export default function Cart() {
                       <button className="btn brdr-main  text-danger">-</button>
                     </div>
                   </div>
-                  <button className="btn p-0">
+                  <button
+                    onClick={() => DeletedItems(product.product.id)}
+                    className="btn p-0"
+                  >
                     {" "}
                     <li className=" text-danger fas fa-trash-can"> </li> Remove
                     Item{" "}

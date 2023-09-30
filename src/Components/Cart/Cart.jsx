@@ -1,13 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
+import { InfinitySpin } from "react-loader-spinner";
 //import Style from "./Cart.module.css";
 
-
 export default function Cart() {
-  let { getLoggedUserCart, RemoveCartItem, UpdateCartProductQuantity } =
+  let { getLoggedUserCart, RemoveCartItem, UpdateCartProduct } =
     useContext(CartContext);
 
   const [CartDetails, setCartDetails] = useState(null);
+
+  const [IsLoading, setIsLoading] = useState(false);
+
+  async function updateCartCount(zalabia, count) {
+    let { data } = await UpdateCartProduct(zalabia, count);
+    setCartDetails(data);
+  }
 
   async function getCart() {
     const { data } = await getLoggedUserCart();
@@ -16,31 +23,14 @@ export default function Cart() {
   }
   //////////////////
   async function DeletedItems(productID) {
+    setIsLoading(true);
     const { data } = await RemoveCartItem(productID);
     setCartDetails(data);
+    setIsLoading(false);
   }
   useEffect(() => {
     getCart();
   }, []);
-
-  /**async function DeletedItems(productID) {
-    try {
-      const response = await RemoveCartItem(productID);
-  
-      // Check if the response is an error (if it has an 'error' property, for example)
-      if (response.error) {
-        console.error('Error:', response.error);
-        // Handle the error here, e.g., show an error message to the user
-      } else {
-        // Assuming the response is successful, update the state with the data
-        setCartDetails(response);
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
-      // Handle other errors (e.g., network errors) here
-    }
-  }
-  */
 
   return (
     <main>
@@ -77,9 +67,23 @@ export default function Cart() {
                       <h6 className="text-main">Price : {product.price}</h6>
                     </div>
                     <div>
-                      <button className="btn brdr-main  text-info">+</button>
+                      <button
+                        onClick={() =>
+                          updateCartCount(product.product.id, product.count + 1)
+                        }
+                        className="btn brdr-main  text-info"
+                      >
+                        +
+                      </button>
                       <span className="mx-3">{product.count}</span>
-                      <button className="btn brdr-main  text-danger">-</button>
+                      <button
+                        onClick={() =>
+                          updateCartCount(product.product.id, product.count - 1)
+                        }
+                        className="btn brdr-main  text-danger"
+                      >
+                        -
+                      </button>
                     </div>
                   </div>
                   <button
@@ -94,13 +98,33 @@ export default function Cart() {
               </div>
             ))}
           </div>
+          <button className="btn p-0">
+            {" "}
+            <li className=" text-danger fas fa-trash-can"> </li> Remove Item{" "}
+          </button>
         </div>
       ) : (
-        ""
+        <div className="mx-auto  d-flex justify-content-center align-items-center py-5">
+          <InfinitySpin width="300" color="#4fa94d" />
+        </div>
       )}
     </main>
   );
 }
+
+/**
+ * <div>
+          {IsLoading ? (
+            <div>
+              <div className="mx-auto  d-flex justify-content-center align-items-center py-5">
+                <InfinitySpin width="300" color="#4fa94d" />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+ */
 
 /**  async function DisplayCartItems() {
     await GetLoggedUserCart();

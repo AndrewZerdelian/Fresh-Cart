@@ -33,7 +33,55 @@ export default function CreateContextProvider(props) {
       .catch((err) => err);
   }
 
-  async function UpdateCartProductQuantity(productID) {
+  async function RemoveCartItem(productID) {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
+        headers,
+      })
+      .then((response) => response)
+      .catch((error) => error);
+  }
+
+  async function UpdateCartProduct(btates, count) {
+    try {
+      const response = await axios.put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${btates}`,
+        {
+          count,
+        },
+        {
+          headers,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Product quantity updated successfully.");
+      } else {
+        console.error("Failed to update product quantity.");
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  return (
+    <CartContext.Provider
+      value={{
+        AddToOCart,
+        getLoggedUserCart,
+        UpdateCartProduct,
+        RemoveCartItem,
+      }}
+    >
+      {props.children}
+    </CartContext.Provider>
+  );
+}
+
+/**async function UpdateCartProduct(productID) {
     try {
       const response = await axios.put(
         `https://ecommerce.routemisr/api/v1/cart/`,
@@ -49,22 +97,14 @@ export default function CreateContextProvider(props) {
       } else {
         console.error("Failed to update product quantity.");
       }
+      return response;
     } catch (error) {
       console.log("Errors FROM UpdateCartProductQuantity");
     }
   }
+*/
 
-
-    async function RemoveCartItem(productID) {
-    return axios
-      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
-        headers,
-      })
-      .then((response) => response)
-      .catch((error) => error);
-  }
-  
-  /** 
+/** 
     async function RemoveCartItem(productID) {
     try {
       const response = await axios.delete(
@@ -84,19 +124,7 @@ export default function CreateContextProvider(props) {
     }
   }
  */
-  return (
-    <CartContext.Provider
-      value={{
-        AddToOCart,
-        getLoggedUserCart,
-        UpdateCartProductQuantity,
-        RemoveCartItem,
-      }}
-    >
-      {props.children}
-    </CartContext.Provider>
-  );
-}
+
 /**
  *     try {
       const response = await axios.post(

@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
 import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
+
 //import Style from "./NavBar.module.css";
 
 export default function NavBar() {

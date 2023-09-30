@@ -13,7 +13,8 @@ import UserContextProvider from "./Context/UserContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import FeaturedDetails from "./Components/FeaturedDetails/FeaturedDetails";
 import CreateContextProvider from "./Components/CartContext/CartContext";
-import  { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+import Profile from "./Components/Profile/Profile";
 
 //Importing and Routing
 
@@ -51,6 +52,14 @@ let Routers = createBrowserRouter([
         ),
       },
       {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "Products",
         element: (
           <ProtectedRoute>
@@ -78,6 +87,7 @@ let Routers = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -90,7 +100,7 @@ export default function App() {
           <RouterProvider router={Routers}></RouterProvider>
         </div>
       </UserContextProvider>
-      <Toaster/>
+      <Toaster />
     </CreateContextProvider>
   );
 }

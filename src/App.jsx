@@ -95,16 +95,18 @@ let Routers = createBrowserRouter([
 ]);
 export default function App() {
   return (
-    <CatgoriesContextprovider>
+    
       <CreateContextProvider>
         <UserContextProvider>
+        <CatgoriesContextprovider>
           <div>
             <RouterProvider router={Routers}></RouterProvider>
           </div>
+          </CatgoriesContextprovider>
         </UserContextProvider>
 
         <Toaster />
       </CreateContextProvider>
-    </CatgoriesContextprovider>
+    
   );
 }

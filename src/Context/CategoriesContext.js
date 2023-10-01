@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { createContext } from "react";
 //import Style from "./CatgoriesContext.module.css";
 
-const CatContext = createContext();
+export let CatContext = createContext();
 const BaseURL = `https://ecommerce.routemisr.com`;
 const CategoriesEndPoint = `/api/v1/categories`;
-const UserToken = localStorage.getItem("UserToken");
+//const UserToken = localStorage.getItem("UserToken");
 
-export default function CatgoriesContextprovider() {
+export default function CatgoriesContextprovider({ children }) {
   async function GetCategoriesList() {
     try {
       const response = await axios.get(BaseURL + CategoriesEndPoint);
@@ -24,7 +24,11 @@ export default function CatgoriesContextprovider() {
     }
   }
 
+  //class Catgories = CatgoriesContextprovider
+
   return (
-    <CatContext.Provider value={{ GetCategoriesList }}></CatContext.Provider>
+    <CatContext.Provider value={{ GetCategoriesList }}>
+      {children}
+    </CatContext.Provider>
   );
 }

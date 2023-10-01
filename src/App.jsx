@@ -15,6 +15,7 @@ import FeaturedDetails from "./Components/FeaturedDetails/FeaturedDetails";
 import CreateContextProvider from "./Components/CartContext/CartContext";
 import { Toaster } from "react-hot-toast";
 import Profile from "./Components/Profile/Profile";
+import CatgoriesContextprovider from "../src/Context/CategoriesContext";
 
 //Importing and Routing
 
@@ -94,13 +95,16 @@ let Routers = createBrowserRouter([
 ]);
 export default function App() {
   return (
-    <CreateContextProvider>
-      <UserContextProvider>
-        <div>
-          <RouterProvider router={Routers}></RouterProvider>
-        </div>
-      </UserContextProvider>
-      <Toaster />
-    </CreateContextProvider>
+    <CatgoriesContextprovider>
+      <CreateContextProvider>
+        <UserContextProvider>
+          <div>
+            <RouterProvider router={Routers}></RouterProvider>
+          </div>
+        </UserContextProvider>
+
+        <Toaster />
+      </CreateContextProvider>
+    </CatgoriesContextprovider>
   );
 }

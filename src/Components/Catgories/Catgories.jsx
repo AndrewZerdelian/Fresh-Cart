@@ -1,6 +1,9 @@
-import React from "react";
-import Style from "./Catgories.module.css";
+import React, { useContext } from "react";
+import { CatContext } from "../../Context/CategoriesContext";
+//import Style from "./Catgories.module.css";
 
 export default function Catgories() {
-  return <div>Catgoriesss</div>;
+  const { GetCategoriesList } = useContext(CatContext);
+
+  return <main>Content we btates </main>;
 }

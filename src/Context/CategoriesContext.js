@@ -29,9 +29,6 @@ export default function CatgoriesContextprovider(props) {
     </CatContext.Provider>
   );
 }
-
-//class Catgories = CatgoriesContextprovider
-
 /**
    * async function GetCategoriesList() {
     try {

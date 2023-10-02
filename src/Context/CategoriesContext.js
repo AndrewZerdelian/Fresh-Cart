@@ -6,7 +6,7 @@ const BaseURL = `https://ecommerce.routemisr.com`;
 const CategoriesEndPoint = `/api/v1/categories`;
 //const UserToken = localStorage.getItem("UserToken");
 
-export default function CatgoriesContextprovider(props) {
+export default function CatgoriesContextprovider({children}) {
   async function GetCategoriesList() {
     try {
       const response = await axios.get(BaseURL + CategoriesEndPoint);
@@ -25,7 +25,7 @@ export default function CatgoriesContextprovider(props) {
 
   return (
     <CatContext.Provider value={{ GetCategoriesList }}>
-      {props.children}
+      {children}
     </CatContext.Provider>
   );
 }

@@ -19,7 +19,7 @@ export default function Cart() {
   async function getCart() {
     const { data } = await getLoggedUserCart();
     setCartDetails(data);
-    //console.log(data);
+    console.log(data.data.products);
   }
   //////////////////
   async function DeletedItems(productID) {

@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { userContext } from "../../Context/UserContext";
 import { Offline, Online } from "react-detect-offline";
+import CatgoriesContextprovider from "../../Context/CategoriesContext";
 
 export default function Layout() {
   let { setUserToken } = useContext(userContext);

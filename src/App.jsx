@@ -16,6 +16,7 @@ import CreateContextProvider from "./Components/CartContext/CartContext";
 import { Toaster } from "react-hot-toast";
 import Profile from "./Components/Profile/Profile";
 import CatgoriesContextprovider from "../src/Context/CategoriesContext";
+import BrandsContextProvider from "./Context/BrandsContext";
 
 //Importing and Routing
 
@@ -39,8 +40,7 @@ let Routers = createBrowserRouter([
         path: "Brands",
         element: (
           <ProtectedRoute>
-            {" "}
-            <Brands />{" "}
+            <Brands />
           </ProtectedRoute>
         ),
       },
@@ -95,18 +95,18 @@ let Routers = createBrowserRouter([
 ]);
 export default function App() {
   return (
-    
-      <CreateContextProvider>
-        <UserContextProvider>
+    <BrandsContextProvider>
+    <CreateContextProvider>
+      <UserContextProvider>
         <CatgoriesContextprovider>
           <div>
             <RouterProvider router={Routers}></RouterProvider>
           </div>
-          </CatgoriesContextprovider>
-        </UserContextProvider>
+        </CatgoriesContextprovider>
+      </UserContextProvider>
 
-        <Toaster />
-      </CreateContextProvider>
-    
+      <Toaster />
+    </CreateContextProvider>
+    </BrandsContextProvider>
   );
 }

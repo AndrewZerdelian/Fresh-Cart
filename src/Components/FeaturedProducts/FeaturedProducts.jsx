@@ -1,7 +1,7 @@
 import axios from "axios";
 //import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-//import Style from "./FeaturedProducts.module.css";
+import Style from "./FeaturedProducts.module.css";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -43,18 +43,18 @@ export default function FeaturedProducts() {
   return (
     <main>
       {isLoading ? (
-        <div className="mx-auto  d-flex justify-content-center align-items-center py-5">
+        <div className="mx-auto  d-flex justify-content-center align-items-center py-5 ">
           <InfinitySpin width="300" color="#4fa94d" />
         </div>
       ) : (
-        <div className="container py-2 ">
+        <div className="container py-2 pt-5 ">
           <div className="row">
             {data.data.data.map((product) => (
               <div
                 key={product.id}
-                className="col-md-2 py-3 px-2 cursor-pointer scale-25"
+                className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
               >
-                <Link to={`/FeaturedDetails/${product.id}`} className="">
+                <Link to={`/FeaturedDetails/${product.id}`} className="text-decoration-none">
                   <img
                     src={product.imageCover}
                     alt={product.title}

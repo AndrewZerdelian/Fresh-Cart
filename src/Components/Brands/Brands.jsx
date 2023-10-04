@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BrandsContext } from "../../Context/BrandsContext";
 import { InfinitySpin } from "react-loader-spinner";
 import Styles from "./Brands.module.css";
+import { Link } from "react-router-dom";
 export default function Brands() {
   const { GetBrandsAPI } = useContext(BrandsContext);
   const [APIMAPPING, setAPIMAPPING] = useState([]);
@@ -32,7 +33,7 @@ export default function Brands() {
       ) : (
         <div>
           <div className="text-center text-main pt-5">
-            <h1 className="fw-bolder">ALL Brands</h1>
+            <h1 className="fw-bolder">All Brands</h1>
           </div>
 
           <div className="container">
@@ -42,11 +43,17 @@ export default function Brands() {
                   key={item._id}
                   className={`col-md-4 d-flex justify-content-center align-items-center shadow p-5 ${Styles.card}`}
                 >
-                  <div>
-                    <img src={item.image} alt={item.name} />
+                  <Link to={`/BrandsDetails/${item._id}`} className="text-decoration-none">
+                    <div>
+                      <img
+                        className="container"
+                        src={item.image}
+                        alt={item.name}
+                      />
 
-                    <p className="text-center fw-bolder">{item.name}</p>
-                  </div>
+                      <p className="text-center fw-bolder">{item.name}</p>
+                    </div>
+                  </Link>
                 </div>
               ))}
             </div>

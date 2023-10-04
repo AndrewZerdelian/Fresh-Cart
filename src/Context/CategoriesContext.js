@@ -12,7 +12,7 @@ export default function CatgoriesContextprovider({ children }) {
       const response = await axios.get(BaseURL + CategoriesEndPoint);
 
       if (response.status === 200) {
-        console.log("Product quantity updated successfully From Context.");
+        //console.log("Product quantity updated successfully From Context.");
       } else {
         console.log("Failed to update product quantity From Context.");
       }
@@ -23,15 +23,14 @@ export default function CatgoriesContextprovider({ children }) {
   }
   /////////////////////////Categorie Details Function /////////////////////////////////////
 
-  async function GetSpecificCategory(CategorieID) {
+  async function GetSpecificCategory(_id) {
     try {
-      const response = await axios.get(
-        BaseURL + `/api/v1/categories/${CategorieID}`
-      );
-      console.log(response);
+      const response = await axios.get(`https://ecommerce.routemisr.com/api/v1/categories/${_id}`);
+      console.log(response.data);
+      
       return response;
     } catch (error) {
-      console.log("Error in get specific category", error);
+      console.log(error);
     }
   }
   return (

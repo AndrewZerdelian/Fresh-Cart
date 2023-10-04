@@ -18,6 +18,7 @@ import Profile from "./Components/Profile/Profile";
 import CatgoriesContextprovider from "../src/Context/CategoriesContext";
 import BrandsContextProvider from "./Context/BrandsContext";
 import CategoryDetails from "./Components/CategoryDetails/CategoryDetails";
+import BrandsDetails from "./Components/BrandsDetails/BrandsDetails";
 
 //Importing and Routing
 
@@ -42,6 +43,14 @@ let Routers = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Brands />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "BrandsDetails/:_id",
+        element: (
+          <ProtectedRoute>
+            <BrandsDetails />
           </ProtectedRoute>
         ),
       },
@@ -80,7 +89,7 @@ let Routers = createBrowserRouter([
         ),
       },
       {
-        path: "CategoryDetails",
+        path: "CategoryDetails/:_id",
         element: (
           <ProtectedRoute>
             <CategoryDetails />

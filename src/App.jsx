@@ -80,7 +80,7 @@ let Routers = createBrowserRouter([
         ),
       },
       {
-        path: "CategoryDetails",
+        path: "CategoryDetails/:_id",
         element: (
           <ProtectedRoute>
             <CategoryDetails />

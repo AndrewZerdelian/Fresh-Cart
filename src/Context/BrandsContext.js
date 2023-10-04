@@ -15,41 +15,13 @@ export default function BrandsContextProvider({ children }) {
       console.error(error + "something went wrong in BrandsContext ");
     }
   }
-
+  async function GetSpecificBrand() {}
   return (
-    <BrandsContext.Provider value={{GetBrandsAPI}}>
+    <BrandsContext.Provider value={{ GetBrandsAPI }}>
       {children}
     </BrandsContext.Provider>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * import axios from "axios";

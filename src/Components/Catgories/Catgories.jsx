@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CatContext } from "../../Context/CategoriesContext";
 import Catgoriess from "./Catgories.module.css";
+import { Link } from "react-router-dom";
 
 export default function Catgories() {
   const { GetCategoriesList } = useContext(CatContext);
@@ -12,7 +13,7 @@ export default function Catgories() {
       const { data } = await GetCategoriesList();
       // SetTesting(data.data);
       setCategories(data.data);
-      console.log(data.data);
+      //console.log(data.data);
     } catch (error) {
       console.error("we cough an error");
     }
@@ -31,8 +32,11 @@ export default function Catgories() {
               key={x._id}
               className={` col-md-4 cursor-pointer card shadow  d-flex justify-content-center align-items-center ${Catgoriess.card}`}
             >
-              <img src={x.image} className="w-100 h-75" alt={x.name} />
-              <h3 className="fw-bolder text-center text-main">{x.name}</h3>
+              <Link className="text-decoration-none"
+              to={`/CategoryDetails/${x._id}`}>
+                <img src={x.image} className="w-100 h-75" alt={x.name} />
+                <h3 className="fw-bolder text-center text-main">{x.name}</h3>
+              </Link>
             </div>
           ))}
         </div>

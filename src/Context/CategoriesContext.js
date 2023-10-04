@@ -6,7 +6,7 @@ const BaseURL = `https://ecommerce.routemisr.com`;
 const CategoriesEndPoint = `/api/v1/categories`;
 //const UserToken = localStorage.getItem("UserToken");
 
-export default function CatgoriesContextprovider({children}) {
+export default function CatgoriesContextprovider({ children }) {
   async function GetCategoriesList() {
     try {
       const response = await axios.get(BaseURL + CategoriesEndPoint);
@@ -16,15 +16,26 @@ export default function CatgoriesContextprovider({children}) {
       } else {
         console.log("Failed to update product quantity From Context.");
       }
-
       return response;
     } catch (error) {
       throw error;
     }
   }
+  /////////////////////////Categorie Details Function /////////////////////////////////////
 
+  async function GetSpecificCategory(CategorieID) {
+    try {
+      const response = await axios.get(
+        BaseURL + `/api/v1/categories/${CategorieID}`
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log("Error in get specific category", error);
+    }
+  }
   return (
-    <CatContext.Provider value={{ GetCategoriesList }}>
+    <CatContext.Provider value={{ GetCategoriesList, GetSpecificCategory }}>
       {children}
     </CatContext.Provider>
   );

@@ -22,6 +22,35 @@ export default function BrandsContextProvider({ children }) {
     </BrandsContext.Provider>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * import axios from "axios";
 import { createContext } from "react";

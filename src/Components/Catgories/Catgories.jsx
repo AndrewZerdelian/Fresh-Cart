@@ -29,7 +29,7 @@ export default function Catgories() {
           {Categories.map((x) => (
             <div
               key={x._id}
-              className={` col-md-4 cursor-pointer card  d-flex justify-content-center align-items-center ${Catgoriess.card}`}
+              className={` col-md-4 cursor-pointer card shadow  d-flex justify-content-center align-items-center ${Catgoriess.card}`}
             >
               <img src={x.image} className="w-100 h-75" alt={x.name} />
               <h3 className="fw-bolder text-center text-main">{x.name}</h3>
@@ -40,6 +40,7 @@ export default function Catgories() {
     </main>
   );
 }
+
 //className={`${Catgoriess.card} + ${Catgoriess.Scale}`}
 //
 /**

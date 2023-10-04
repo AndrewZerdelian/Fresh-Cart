@@ -1,1 +1,11 @@
-.Brands {}
+.card {
+    transition: transform 0.4s;
+  }
+  .card:hover {
+    transform: scale(1.1);
+  }
+
+  .Scale {
+    width: 100%;
+    height: 75%;
+  }

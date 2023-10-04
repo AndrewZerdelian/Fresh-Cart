@@ -15,9 +15,17 @@ export default function BrandsContextProvider({ children }) {
       console.error(error + "something went wrong in BrandsContext ");
     }
   }
-  async function GetSpecificBrand() {}
+  async function GetSpecificBrand(_id) {
+      try {
+        const response = await axios.get(`https://ecommerce.routemisr.com/api/v1/brands/${_id}`)
+        console.log(response+"response from BrandsContext Details ");
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+  }
   return (
-    <BrandsContext.Provider value={{ GetBrandsAPI }}>
+    <BrandsContext.Provider value={{ GetBrandsAPI , GetSpecificBrand }}>
       {children}
     </BrandsContext.Provider>
   );

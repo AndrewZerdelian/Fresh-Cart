@@ -24,7 +24,7 @@ export default function CategoryDetails() {
   return (
     <main>
       <div>
-        <h1 className="text-center fw-bolder text-main p-5">CategoryDetails</h1>
+        <h1 className="text-center fw-bolder text-main p-5">Category Details</h1>
 
         <div className="container shadow">
         <div className="row align-items-center ">

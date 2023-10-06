@@ -19,6 +19,8 @@ import CatgoriesContextprovider from "../src/Context/CategoriesContext";
 import BrandsContextProvider from "./Context/BrandsContext";
 import CategoryDetails from "./Components/CategoryDetails/CategoryDetails";
 import BrandsDetails from "./Components/BrandsDetails/BrandsDetails";
+import ForgotPassword from "./Components/ForgetPassword/ForgetPassword";
+import ForgotPasswordContextProvider from "./Context/ForgotPasswordContext";
 
 //Importing and Routing
 
@@ -38,6 +40,17 @@ let Routers = createBrowserRouter([
       },
       { path: "Layout", element: <Layout /> },
       { path: "Login", element: <Login /> },
+      {
+        path: "ForgotPassword",
+        //PROTECTED ROUTE NEEDED AFTER FINISHING
+
+        element: (
+          <ProtectedRoute>
+            <ForgotPassword />
+          </ProtectedRoute>
+        ),
+      },
+
       {
         path: "Brands",
         element: (
@@ -112,18 +125,20 @@ let Routers = createBrowserRouter([
 ]);
 export default function App() {
   return (
-    <BrandsContextProvider>
-      <CreateContextProvider>
-        <UserContextProvider>
-          <CatgoriesContextprovider>
-            <div>
-              <RouterProvider router={Routers}></RouterProvider>
-            </div>
-          </CatgoriesContextprovider>
-        </UserContextProvider>
+    <ForgotPasswordContextProvider>
+      <BrandsContextProvider>
+        <CreateContextProvider>
+          <UserContextProvider>
+            <CatgoriesContextprovider>
+              <div>
+                <RouterProvider router={Routers}></RouterProvider>
+              </div>
+            </CatgoriesContextprovider>
+          </UserContextProvider>
 
-        <Toaster />
-      </CreateContextProvider>
-    </BrandsContextProvider>
+          <Toaster />
+        </CreateContextProvider>
+      </BrandsContextProvider>
+    </ForgotPasswordContextProvider>
   );
 }

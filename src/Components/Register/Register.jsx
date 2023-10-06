@@ -45,7 +45,7 @@ export default function Register() {
       `Password must includes Capital letter, Number,and a Symbol`
     ),
     rePassword: YUP.string()
-      .oneOf([YUP.ref("password")], "password must be Mached")
+      .oneOf([YUP.ref("password")], "password must be Matched")
       .required(`password is not matched`),
   });
 
@@ -66,7 +66,7 @@ export default function Register() {
 
   return (
     <main className="w-75 mx-auto py-4">
-      <h2 className="mx-auto">REGISTERATION FORM </h2>
+      <h2 className="mx-auto"> Registration form </h2>
       {Error ? (
         <div className="alert p-2 mt-2 alert-danger w-75 mx-auto">{Error}</div>
       ) : (

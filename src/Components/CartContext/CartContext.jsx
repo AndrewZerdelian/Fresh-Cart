@@ -67,6 +67,19 @@ export default function CreateContextProvider(props) {
     }
   }
 
+  async function ClearAllUserCart() {
+    try {
+      const response = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        { headers: headers }
+      );
+      console.log(response + " Clear ALL ITEMS FROM CONTEST ");
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -74,6 +87,7 @@ export default function CreateContextProvider(props) {
         getLoggedUserCart,
         UpdateCartProduct,
         RemoveCartItem,
+        ClearAllUserCart,
       }}
     >
       {props.children}

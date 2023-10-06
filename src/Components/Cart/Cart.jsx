@@ -4,13 +4,17 @@ import { InfinitySpin } from "react-loader-spinner";
 //import Style from "./Cart.module.css";
 
 export default function Cart() {
-  let { getLoggedUserCart, RemoveCartItem, UpdateCartProduct } =
-    useContext(CartContext);
+  let {
+    getLoggedUserCart,
+    RemoveCartItem,
+    UpdateCartProduct,
+    ClearAllUserCart,
+  } = useContext(CartContext);
 
   const [CartDetails, setCartDetails] = useState(null);
 
   const [IsLoading, setIsLoading] = useState(false);
-
+  const [ClearUserCart, setClearUserCart] = useState([]);
   async function updateCartCount(zalabia, count) {
     let { data } = await UpdateCartProduct(zalabia, count);
     setCartDetails(data);
@@ -19,18 +23,27 @@ export default function Cart() {
   async function getCart() {
     const { data } = await getLoggedUserCart();
     setCartDetails(data);
-    console.log(data.data.products);
+    //console.log(data.data.products);
   }
   //////////////////
   async function DeletedItems(productID) {
-    setIsLoading(true);
     const { data } = await RemoveCartItem(productID);
     setCartDetails(data);
-    setIsLoading(false);
   }
+
   useEffect(() => {
     getCart();
-  }, []);
+  }, [GETClearAllUserCart]);
+
+  async function GETClearAllUserCart() {
+    try {
+      const { data } = await ClearAllUserCart();
+      setClearUserCart(data);
+      console.log(data);
+    } catch (error) {
+      console.error("error in clearing all items from CART ");
+    }
+  }
 
   return (
     <main>
@@ -98,14 +111,24 @@ export default function Cart() {
               </div>
             ))}
           </div>
-          <button className="btn p-0">
-            {" "}
-            <li className=" text-danger fas fa-trash-can"> </li> Remove Item{" "}
-          </button>
+
+          <div className="d-flex justify-content-center align-items-center pt-5">
+            <button
+              className="btn btn-danger w-50 "
+              onClick={GETClearAllUserCart}
+            >
+              DELETE ALL
+            </button>
+          </div>
         </div>
       ) : (
-        <div className="mx-auto  d-flex justify-content-center align-items-center py-5">
-          <InfinitySpin width="300" color="#4fa94d" />
+        <div className="w-75 mx-auto p-3 bg-main-light">
+          <h3>Shopping Cart</h3>
+          <h4 className="h6 text-main fw-bolder">Cart Items : 0</h4>
+          <h4 className="h6 text-main fw-bolder md-4">Total Price 0 EGP</h4>
+          <h1 className="fw-bolder text-main text center p-5">
+            Cart Items Are Empty{" "}
+          </h1>
         </div>
       )}
     </main>

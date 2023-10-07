@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
@@ -8,6 +8,30 @@ export default function CreateContextProvider(props) {
   const headers = { token: UserToken };
 
   //klmit token de billzat gaya mn post man copy paste 3ashan el backend mi7tag y2raha
+
+
+  const [CartID, setCartID] = useState(null);
+  async function GetperchasedCartItems() {
+    try {
+      let {data} = await getLoggedUserCart();
+      setCartID(data?.data?._id);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    GetperchasedCartItems();
+    console.log("Logging");
+    
+  }, []);
+
+
+
+
+
 
   function AddToOCart(x) {
     return axios
@@ -32,7 +56,16 @@ export default function CreateContextProvider(props) {
       .then((response) => response)
       .catch((err) => err);
   }
-
+  /**
+   *  async function getLoggedUserCart() {
+    return axios
+      .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
+        headers: headers,
+      })
+      .then((response) => response)
+      .catch((err) => err);
+  }
+   */
   async function RemoveCartItem(productID) {
     return axios
       .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
@@ -67,6 +100,43 @@ export default function CreateContextProvider(props) {
     }
   }
 
+  async function ClearAllUserCart() {
+    try {
+      const response = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        { headers: headers }
+      );
+      console.log(response + " Clear ALL ITEMS FROM CONTEST ");
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  ///////////////////PAYMENT////////////////////
+
+  async function POSTCheckoutSession(id, url, values) {
+    try {
+      const response = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${id}?url=${url}`,
+        {
+          shippingAddress: values,
+        },
+
+        {
+          headers,
+        }
+      );
+      console.log("Logged from Perchasing API ");
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //////////////////// /////////////////////
+
+  //`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/65212ed67aa5335f22971d72?url=http://localhost:3000`,
   return (
     <CartContext.Provider
       value={{
@@ -74,6 +144,9 @@ export default function CreateContextProvider(props) {
         getLoggedUserCart,
         UpdateCartProduct,
         RemoveCartItem,
+        ClearAllUserCart,
+        POSTCheckoutSession,
+        CartID,
       }}
     >
       {props.children}

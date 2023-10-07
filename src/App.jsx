@@ -21,6 +21,8 @@ import CategoryDetails from "./Components/CategoryDetails/CategoryDetails";
 import BrandsDetails from "./Components/BrandsDetails/BrandsDetails";
 import ForgotPassword from "./Components/ForgetPassword/ForgetPassword";
 import ForgotPasswordContextProvider from "./Context/ForgotPasswordContext";
+import Address from "./Components/Address/Address";
+import Orders from "./Components/Orders/Orders";
 
 //Importing and Routing
 
@@ -40,14 +42,16 @@ let Routers = createBrowserRouter([
       },
       { path: "Layout", element: <Layout /> },
       { path: "Login", element: <Login /> },
+      { path: "Address", element: <Address /> },
+      { path: "Orders", element: <Orders /> },
       {
         path: "ForgotPassword",
         //PROTECTED ROUTE NEEDED AFTER FINISHING
 
         element: (
-          <ProtectedRoute>
+          
             <ForgotPassword />
-          </ProtectedRoute>
+          
         ),
       },
 

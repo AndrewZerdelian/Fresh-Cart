@@ -10,8 +10,8 @@ export default function CategorySlider() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 7,
-    slidesToScroll: 1,
+    slidesToShow: 5,
+    slidesToScroll: 3,
     autoplay: true,
   };
 
@@ -25,7 +25,7 @@ export default function CategorySlider() {
   //console.log(data?.data.data);
 
   return (
-    <div>
+    <div className="container">
       {data?.data.data ? (
         <Slider {...settings}>
           {data?.data.data.map((category) => (

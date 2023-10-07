@@ -3,13 +3,17 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Style from "./FeaturedProducts.module.css";
 import { InfinitySpin } from "react-loader-spinner";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Await, Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import toast from "react-hot-toast";
+import { WishList } from "../../Context/WishListContext";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
+  const { AddProductToWishlistAPI } = useContext(WishList);
+  //const [isClick, setClick] = useState(false);
+  const [WishListDetails, setWishListDetails] = useState(null);
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
@@ -39,7 +43,17 @@ export default function FeaturedProducts() {
   );
 
   //console.log(data?.data.data.product);
+  async function getWishList(productId) {
+    try {
+      const response = await AddProductToWishlistAPI(productId);
+      setWishListDetails(response);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  useEffect(() => {}, [getWishList]);
   return (
     <main>
       {isLoading ? (
@@ -54,7 +68,10 @@ export default function FeaturedProducts() {
                 key={product.id}
                 className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
               >
-                <Link to={`/FeaturedDetails/${product.id}`} className="text-decoration-none">
+                <Link
+                  to={`/FeaturedDetails/${product.id}`}
+                  className="text-decoration-none"
+                >
                   <img
                     src={product.imageCover}
                     alt={product.title}
@@ -75,12 +92,21 @@ export default function FeaturedProducts() {
                   </div>
                 </Link>
 
-                <button
-                  onClick={() => Addproduct(product.id)}
-                  className="btn bg-main text-white w-100 btn-sm"
-                >
-                  Add Item
-                </button>
+                <div className="d-flex justify-content-between">
+                  <button
+                    onClick={() => Addproduct(product.id)}
+                    className="btn bg-main text-white w-100 btn-sm"
+                  >
+                    Add Item
+                  </button>
+
+                  <button
+                    onClick={() => getWishList(product.id)}
+                    className="btn bg-main text-white w-100 btn-sm"
+                  >
+                    Add To WishList
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -89,7 +115,9 @@ export default function FeaturedProducts() {
     </main>
   );
 }
-
+/**
+ *
+ */
 /**
  * 
  * const [Products, setProducts] = useState([]);

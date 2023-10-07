@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as YUP from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { useContext } from "react";
@@ -54,7 +54,6 @@ export default function Register() {
       email: "",
 
       password: "",
-
     },
     validationSchema,
 
@@ -64,8 +63,8 @@ export default function Register() {
   //{Form.errors.name && Form.touched.name && <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>}
 
   return (
-    <main className="w-75 mx-auto py-4">
-      <h2 className="mx-auto">LOGIN FORM </h2>
+    <main className="w-100 mx-auto py-4">
+      <h2 className="mx-auto text-center text-main fw-bolder ">LOGIN FORM </h2>
       {Error ? (
         <div className="alert p-2 mt-2 alert-danger w-75 mx-auto">{Error}</div>
       ) : (
@@ -125,13 +124,18 @@ export default function Register() {
               />
             </button>
           ) : (
-            <button
-              disabled={!(Form.isValid && Form.dirty)}
-              type="submit"
-              className="btn btn-primary mb-3"
-            >
-              Submit
-            </button>
+            <div className="d-flex justify-content-between ">
+              <button
+                disabled={!(Form.isValid && Form.dirty)}
+                type="submit"
+                className="btn btn-primary mb-3 "
+              >
+                Submit
+              </button>
+              <Link to={`/ForgotPassword`}>
+              <button className="btn btn-danger mb-3 ">Forget Password</button>
+              </Link>
+            </div>
           )}
         </div>
       </form>

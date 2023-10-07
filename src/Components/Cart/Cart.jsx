@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { InfinitySpin } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 //import Style from "./Cart.module.css";
 
 export default function Cart() {
@@ -21,9 +22,14 @@ export default function Cart() {
   }
 
   async function getCart() {
+  try {
     const { data } = await getLoggedUserCart();
     setCartDetails(data);
-    //console.log(data.data.products);
+    // console.log(data.data.products);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
   }
   //////////////////
   async function DeletedItems(productID) {
@@ -33,12 +39,15 @@ export default function Cart() {
 
   useEffect(() => {
     getCart();
-  }, [GETClearAllUserCart]);
+  }, []); ////////////////////
+
+  useEffect(() => {}, [GETClearAllUserCart]); //////////////
 
   async function GETClearAllUserCart() {
     try {
       const { data } = await ClearAllUserCart();
       setClearUserCart(data);
+      window.location.reload()
       console.log(data);
     } catch (error) {
       console.error("error in clearing all items from CART ");
@@ -48,7 +57,15 @@ export default function Cart() {
   return (
     <main>
       {CartDetails ? (
-        <div>
+        <div className="pt-2">
+          <div className="d-flex justify-content-start align-items-center pb-3  container">
+            <button
+              className="btn btn-danger w-25 "
+              onClick={GETClearAllUserCart}
+            >
+              DELETE ALL
+            </button>
+          </div>
           <div className="w-75 mx-auto p-3 bg-main-light">
             <h3>Shopping Cart</h3>
             <h4 className="h6 text-main fw-bolder">
@@ -110,15 +127,18 @@ export default function Cart() {
                 </div>
               </div>
             ))}
-          </div>
+            <div className="d-flex justify-content-between pt-3">
+              <Link
+                to={`/Address`}
+                className="btn bg-main text-white fw-bold w-25 "
+              >
+                Online Payment
+              </Link>
 
-          <div className="d-flex justify-content-center align-items-center pt-5">
-            <button
-              className="btn btn-danger w-50 "
-              onClick={GETClearAllUserCart}
-            >
-              DELETE ALL
-            </button>
+              <Link className="btn bg-main text-white fw-bold  w-25">
+                Cash on Delivery
+              </Link>
+            </div>
           </div>
         </div>
       ) : (
@@ -127,7 +147,7 @@ export default function Cart() {
           <h4 className="h6 text-main fw-bolder">Cart Items : 0</h4>
           <h4 className="h6 text-main fw-bolder md-4">Total Price 0 EGP</h4>
           <h1 className="fw-bolder text-main text center p-5">
-            Cart Items Are Empty{" "}
+            Cart Items is Empty
           </h1>
         </div>
       )}

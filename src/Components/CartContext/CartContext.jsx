@@ -15,7 +15,7 @@ export default function CreateContextProvider(props) {
     try {
       let {data} = await getLoggedUserCart();
       setCartID(data?.data?._id);
-      console.log(data);
+      //console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -24,7 +24,7 @@ export default function CreateContextProvider(props) {
 
   useEffect(() => {
     GetperchasedCartItems();
-    console.log("Logging");
+    //console.log("Logging");
     
   }, []);
 

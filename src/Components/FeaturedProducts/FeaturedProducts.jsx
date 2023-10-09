@@ -3,19 +3,26 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Style from "./FeaturedProducts.module.css";
 import { InfinitySpin } from "react-loader-spinner";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Await, Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import toast from "react-hot-toast";
+import { WishList } from "../../Context/WishListContext";
+import { BsFillHeartFill } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
+  const { AddProductToWishlistAPI } = useContext(WishList);
+  //const [isClick, setClick] = useState(false);
+  const [WishListDetails, setWishListDetails] = useState(null);
+  const [HeartIcon, SetHeartIcon] = useState(false);
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-    if (response.data.status === "success") {
+    if (response?.data?.status === "success") {
       toast.success("Item added successfully", {
-        duration: 5000,
+        duration: 2000,
       });
     } else {
       toast.error("Error adding product: ");
@@ -23,8 +30,8 @@ export default function FeaturedProducts() {
     //console.log(response); // betbain el product
   }
 
-  function GetFeaturedProducts() {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
+  async function GetFeaturedProducts() {
+    return await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
   //refetch isError
   //isFetching
@@ -38,7 +45,22 @@ export default function FeaturedProducts() {
     }
   );
 
-  //console.log(data?.data.data.product);
+  async function getWishList(productId) {
+    try {
+      const response = await AddProductToWishlistAPI(productId);
+      setWishListDetails(response);
+      //console.log(response);
+      await SetHeartIcon(!HeartIcon);
+      toast.success("Item added to wish list", {
+        duration: 1000,
+      });
+    } catch (error) {
+      toast.error("Error adding product: ");
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {}, [getWishList]);
 
   return (
     <main>
@@ -49,12 +71,15 @@ export default function FeaturedProducts() {
       ) : (
         <div className="container py-2 pt-5 ">
           <div className="row">
-            {data.data.data.map((product) => (
+            {data?.data?.data?.map((product) => (
               <div
                 key={product.id}
                 className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
               >
-                <Link to={`/FeaturedDetails/${product.id}`} className="text-decoration-none">
+                <Link
+                  to={`/FeaturedDetails/${product.id}`}
+                  className="text-decoration-none"
+                >
                   <img
                     src={product.imageCover}
                     alt={product.title}
@@ -75,12 +100,22 @@ export default function FeaturedProducts() {
                   </div>
                 </Link>
 
-                <button
-                  onClick={() => Addproduct(product.id)}
-                  className="btn bg-main text-white w-100 btn-sm"
-                >
-                  Add Item
-                </button>
+                <div className="d-flex justify-content-between">
+                  <button
+                    onClick={() => Addproduct(product.id)}
+                    className="btn bg-main text-white   w-75 btn-sm"
+                  >
+                    Add Item
+                  </button>
+
+                  <div onClick={() => getWishList(product.id)} className="">
+                    {HeartIcon ? (
+                      <FaHeart color="red" size="2em" />
+                    ) : (
+                      <FaRegHeart color="black" size="2em" />
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -89,6 +124,30 @@ export default function FeaturedProducts() {
     </main>
   );
 }
+/**
+ *                   <div onClick={() => getWishList(product.id)}>
+                    {HeartIcon ? (
+                      <FaHeart color="red" size="2em" />
+                    ) : (
+                      <FaRegHeart color="black" size="2em" />
+                    )}
+                  </div>
+ */
+/**
+ *     <button onClick={toggleLiked}>
+      {liked ? <FaHeart /> : <FaRegHeart />}
+    </button>
+ */
+/**
+ *BsFillHeartFill
+
+                 <button
+                    onClick={() => getWishList(product.id)}
+                    className="btn bg-success text-white w-100 btn-sm"
+                  >
+                    Add To WishList
+                  </button>
+ */
 
 /**
  * 

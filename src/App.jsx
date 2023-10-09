@@ -23,6 +23,7 @@ import ForgotPassword from "./Components/ForgetPassword/ForgetPassword";
 import ForgotPasswordContextProvider from "./Context/ForgotPasswordContext";
 import Address from "./Components/Address/Address";
 import Orders from "./Components/Orders/Orders";
+import WishListContextProvider from "./Context/WishListContext";
 
 //Importing and Routing
 
@@ -48,11 +49,7 @@ let Routers = createBrowserRouter([
         path: "ForgotPassword",
         //PROTECTED ROUTE NEEDED AFTER FINISHING
 
-        element: (
-          
-            <ForgotPassword />
-          
-        ),
+        element: <ForgotPassword />,
       },
 
       {
@@ -79,6 +76,7 @@ let Routers = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      
       {
         path: "profile",
         element: (
@@ -129,20 +127,22 @@ let Routers = createBrowserRouter([
 ]);
 export default function App() {
   return (
-    <ForgotPasswordContextProvider>
-      <BrandsContextProvider>
-        <CreateContextProvider>
-          <UserContextProvider>
-            <CatgoriesContextprovider>
-              <div>
-                <RouterProvider router={Routers}></RouterProvider>
-              </div>
-            </CatgoriesContextprovider>
-          </UserContextProvider>
+    <WishListContextProvider>
+      <ForgotPasswordContextProvider>
+        <BrandsContextProvider>
+          <CreateContextProvider>
+            <UserContextProvider>
+              <CatgoriesContextprovider>
+                <div>
+                  <RouterProvider router={Routers}></RouterProvider>
+                </div>
+              </CatgoriesContextprovider>
+            </UserContextProvider>
 
-          <Toaster />
-        </CreateContextProvider>
-      </BrandsContextProvider>
-    </ForgotPasswordContextProvider>
+            <Toaster />
+          </CreateContextProvider>
+        </BrandsContextProvider>
+      </ForgotPasswordContextProvider>
+    </WishListContextProvider>
   );
 }

@@ -19,7 +19,7 @@ export default function FeaturedProducts() {
     let response = await AddToOCart(productId);
     if (response?.data?.status === "success") {
       toast.success("Item added successfully", {
-        duration: 5000,
+        duration: 2000,
       });
     } else {
       toast.error("Error adding product: ");
@@ -27,8 +27,8 @@ export default function FeaturedProducts() {
     //console.log(response); // betbain el product
   }
 
-  function GetFeaturedProducts() {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
+  async function GetFeaturedProducts() {
+    return await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
   //refetch isError
   //isFetching
@@ -42,18 +42,23 @@ export default function FeaturedProducts() {
     }
   );
 
-  //console.log(data?.data.data.product);
   async function getWishList(productId) {
     try {
       const response = await AddProductToWishlistAPI(productId);
       setWishListDetails(response);
-      console.log(response);
+      //console.log(response);
+      toast.success("Item added to wish list", {
+        duration: 1000,
+      });
     } catch (error) {
+      toast.error("Error adding product: ");
       console.log(error);
     }
   }
 
-  useEffect(() => {}, [getWishList]);
+  useEffect(() => {
+    
+  }, [getWishList]);
   return (
     <main>
       {isLoading ? (
@@ -63,7 +68,7 @@ export default function FeaturedProducts() {
       ) : (
         <div className="container py-2 pt-5 ">
           <div className="row">
-            {data.data.data.map((product) => (
+            {data?.data?.data?.map((product) => (
               <div
                 key={product.id}
                 className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}

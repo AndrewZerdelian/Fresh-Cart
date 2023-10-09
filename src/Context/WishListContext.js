@@ -18,7 +18,7 @@ export default function WishListContextProvider({ children }) {
           headers,
         }
       );
-      console.log(response?.data);
+      //console.log(response?.data);
       return response;
     } catch (error) {
       console.error(error);

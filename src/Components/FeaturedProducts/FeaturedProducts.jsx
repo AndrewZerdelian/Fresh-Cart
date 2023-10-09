@@ -8,12 +8,15 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import toast from "react-hot-toast";
 import { WishList } from "../../Context/WishListContext";
+import { BsFillHeartFill } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
   const { AddProductToWishlistAPI } = useContext(WishList);
   //const [isClick, setClick] = useState(false);
   const [WishListDetails, setWishListDetails] = useState(null);
+  const [HeartIcon, SetHeartIcon] = useState(false);
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
@@ -47,6 +50,7 @@ export default function FeaturedProducts() {
       const response = await AddProductToWishlistAPI(productId);
       setWishListDetails(response);
       //console.log(response);
+      await SetHeartIcon(!HeartIcon);
       toast.success("Item added to wish list", {
         duration: 1000,
       });
@@ -56,9 +60,8 @@ export default function FeaturedProducts() {
     }
   }
 
-  useEffect(() => {
-    
-  }, [getWishList]);
+  useEffect(() => {}, [getWishList]);
+
   return (
     <main>
       {isLoading ? (
@@ -100,17 +103,18 @@ export default function FeaturedProducts() {
                 <div className="d-flex justify-content-between">
                   <button
                     onClick={() => Addproduct(product.id)}
-                    className="btn bg-main text-white w-100 btn-sm"
+                    className="btn bg-main text-white   w-75 btn-sm"
                   >
                     Add Item
                   </button>
 
-                  <button
-                    onClick={() => getWishList(product.id)}
-                    className="btn bg-success text-white w-100 btn-sm"
-                  >
-                    Add To WishList
-                  </button>
+                  <div onClick={() => getWishList(product.id)} className="">
+                    {HeartIcon ? (
+                      <FaHeart color="red" size="2em" />
+                    ) : (
+                      <FaRegHeart color="black" size="2em" />
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -121,8 +125,30 @@ export default function FeaturedProducts() {
   );
 }
 /**
- *
+ *                   <div onClick={() => getWishList(product.id)}>
+                    {HeartIcon ? (
+                      <FaHeart color="red" size="2em" />
+                    ) : (
+                      <FaRegHeart color="black" size="2em" />
+                    )}
+                  </div>
  */
+/**
+ *     <button onClick={toggleLiked}>
+      {liked ? <FaHeart /> : <FaRegHeart />}
+    </button>
+ */
+/**
+ *BsFillHeartFill
+
+                 <button
+                    onClick={() => getWishList(product.id)}
+                    className="btn bg-success text-white w-100 btn-sm"
+                  >
+                    Add To WishList
+                  </button>
+ */
+
 /**
  * 
  * const [Products, setProducts] = useState([]);

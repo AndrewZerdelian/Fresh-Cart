@@ -3,30 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
 import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
-import { CartContext } from "../CartContext/CartContext";
+//import { CartContext } from "../CartContext/CartContext";
 
 //import Style from "./NavBar.module.css";
 
 export default function NavBar() {
-  const [CartDetails, setCartDetails] = useState(null);
-  let {
-    getLoggedUserCart,
-  } = useContext(CartContext);
-
-   async function getCart() {
-  try {
-    const { data } = await getLoggedUserCart();
-    setCartDetails(data);
-    // console.log(data.data.products);
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-  }
-  useEffect(() => {
-    getCart();
-  }, []); ////////////////////
-
   let navigate = useNavigate();
   let { UserToken, setUserToken } = useContext(userContext);
 
@@ -86,7 +67,13 @@ export default function NavBar() {
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="Cart">
-                      Cart {CartDetails.numOfCartItems}
+                      Cart{" "}
+                      <span className=" p-1 rounded text-black fw-bolder"></span>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="">
+                      WishList
                     </NavLink>
                   </li>
                 </ul>
@@ -134,3 +121,23 @@ export default function NavBar() {
     </div>
   );
 }
+/**
+ * 
+ *  {CartNumber?.numOfCartItems? <span>{CartNumber?.numOfCartItems}</span> : ''}
+ *  const [CartNumber, setCartNumber] = useState(null);
+  let { getLoggedUserCart } = useContext(CartContext);
+
+  async function getNumber() {
+    try {
+      const { data } = await getLoggedUserCart();
+      setCartNumber(data);
+      
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getNumber();
+  }, []); ////////////////////
+ */

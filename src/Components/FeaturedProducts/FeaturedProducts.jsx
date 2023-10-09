@@ -17,7 +17,7 @@ export default function FeaturedProducts() {
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-    if (response.data.status === "success") {
+    if (response?.data?.status === "success") {
       toast.success("Item added successfully", {
         duration: 5000,
       });
@@ -102,7 +102,7 @@ export default function FeaturedProducts() {
 
                   <button
                     onClick={() => getWishList(product.id)}
-                    className="btn bg-main text-white w-100 btn-sm"
+                    className="btn bg-success text-white w-100 btn-sm"
                   >
                     Add To WishList
                   </button>

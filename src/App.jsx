@@ -76,6 +76,7 @@ let Routers = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      
       {
         path: "profile",
         element: (

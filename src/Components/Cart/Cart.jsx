@@ -22,14 +22,14 @@ export default function Cart() {
   }
 
   async function getCart() {
-  try {
-    const { data } = await getLoggedUserCart();
-    setCartDetails(data);
-    // console.log(data.data.products);
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+      const { data } = await getLoggedUserCart();
+      setCartDetails(data);
+      // console.log(data.data.products);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
   //////////////////
   async function DeletedItems(productID) {
@@ -47,7 +47,7 @@ export default function Cart() {
     try {
       const { data } = await ClearAllUserCart();
       setClearUserCart(data);
-      window.location.reload()
+      window.location.reload();
       console.log(data);
     } catch (error) {
       console.error("error in clearing all items from CART ");

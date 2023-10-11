@@ -1,136 +1,81 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
+import { WishList } from "../../Context/WishListContext";
 
-export default function WishList() {
-  return (
-    <div>WishListItems</div>
-  )
-}
+export default function Wishlist() {
+  const { GetLoggedUserWishlist, RemoveProductFromWishlist } =
+    useContext(WishList);
+  const [Rendering, setRendering] = useState([]);
 
-
-/**
-   * import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-//import Style from "./WishList.module.css";
-
-export default function WishList() {
-  const { AddProductToWishlistAPI } = useContext(WishList);
-  const [WishListDetails, SetWishListDetails] = useState(null);
-
-  async function GetWishListDetails() {
+  async function LoggedUserWishlist() {
     try {
-      const { data } = await AddProductToWishlistAPI();
-      SetWishListDetails(data);
-      // console.log(data.data.products);
+      const { data } = await GetLoggedUserWishlist();
+      setRendering(data);
       console.log(data);
     } catch (error) {
-      console.log(error);
+      console.error("ERR FROM WISHLIST PAGE " + error);
     }
   }
 
   useEffect(() => {
-    GetWishListDetails();
+    LoggedUserWishlist();
   }, []);
+
+  ///////////////////DELETING WISHLIST////////////////////////
+
+  async function DeletingWishList(productId) {
+    try {
+      const { data } = await RemoveProductFromWishlist(productId);
+      window.location.reload();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <main>
-    {WishListDetails ? (
-      <div className="pt-2">
-        <div className="d-flex justify-content-start align-items-center pb-3 container">
-          <button
-            className="btn btn-danger w-25"
-            onClick={() => {
-              // Handle DELETE ALL button click here
-            }}
-          >
-            DELETE ALL
-          </button>
-        </div>
-        <div className="w-75 mx-auto p-3 bg-main-light">
-          <h3>Shopping Cart</h3>
-          <h4 className="h6 text-main fw-bolder">
-            Cart Items: {WishListDetails.numOfCartItems}
-          </h4>
-          <h4 className="h6 text-main fw-bolder md-4">
-            Total Price {WishListDetails.data.totalCartPrice} EGP
-          </h4>
-          {WishListDetails.data.products.map((product) => (
-            <div
-              key={product.product.id}
-              className="row border-bottom py-2 px-2"
-            >
-              <div className="col-md-1">
-                <img
-                  className="w-100"
-                  src={product.product.imageCover}
-                  alt="product"
-                />
-              </div>
-              <div className="col-md-11">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h3 className="h6">
-                      {product.product.title.split(" ").slice(0, 3).join(" ")}
-                    </h3>
-                    <h6 className="text-main">Price: {product.price}</h6>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => {
-                        // Handle increment button click here
-                      }}
-                      className="btn brdr-main text-info"
-                    >
-                      +
-                    </button>
-                    <span className="mx-3">{product.count}</span>
-                    <button
-                      onClick={() => {
-                        // Handle decrement button click here
-                      }}
-                      className="btn brdr-main text-danger"
-                    >
-                      -
-                    </button>
-                  </div>
+    <main className="pt-5">
+      <div className="container  bg-main-light">
+        <h1 className="fw-bolder pt-5">WishList</h1>
+        <h3 className="fw-bolder pt-3 ">
+          Items
+          <span className="fw-bolder"> {Rendering.count}</span>
+        </h3>
+
+        <div className="">
+          {Rendering?.data?.map((Item) => (
+            <div className="" key={Item.id}>
+              <div className="d-flex justify-content-start align-items-center py-2">
+                <div className="w-25 ">
+                  <img
+                    className="w-100"
+                    src={Item.imageCover}
+                    alt={Item.title}
+                  />
                 </div>
-                <button
-                  onClick={() => {
-                    // Handle Remove Item button click here
-                    
-                  }}
-                  className="btn p-0"
-                >
-                  {" "}
-                  <li className="text-danger fas fa-trash-can"> </li> Remove
-                  Item{" "}
-                </button>
+                <div className="w-75 px-5">
+                  <h2 className="fw-bolder text-main pt-5"></h2>
+                  <h2 className="fw-bolder text-main pt-5">
+                    {Item.price} EGP{" "}
+                  </h2>
+                  <div className="py-5 d-flex justify-content-start gap-5">
+                    <button className="btn w-25 bg-primary fw-bolder text-white">
+                      Add To Cart
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => DeletingWishList(Item.id)}
+                    className="btn w-25"
+                  >
+                    <li className=" text-danger fas fa-trash-can"> </li> Remove
+                    Item
+                  </button>
+                </div>
               </div>
             </div>
           ))}
-          <div className="d-flex justify-content-between pt-3">
-            <Link
-              to={`/Address`}
-              className="btn bg-main text-white fw-bold w-25"
-            >
-              Online Payment
-            </Link>
-            <Link className="btn bg-main text-white fw-bold w-25">
-              Cash on Delivery
-            </Link>
-          </div>
         </div>
       </div>
-    ) : (
-      <div className="w-75 mx-auto p-3 bg-main-light">
-        <h3>Shopping Cart</h3>
-        <h4 className="h6 text-main fw-bolder">Cart Items: 0</h4>
-        <h4 className="h6 text-main fw-bolder md-4">Total Price 0 EGP</h4>
-        <h1 className="fw-bolder text-main text-center p-5">
-          Cart Items is Empty
-        </h1>
-      </div>
-    )}
-  </main>
+    </main>
   );
 }
-
- */
+//{Item.title.split(" ").slice(0, 2).join(" ")}

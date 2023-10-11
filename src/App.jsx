@@ -24,6 +24,7 @@ import ForgotPasswordContextProvider from "./Context/ForgotPasswordContext";
 import Address from "./Components/Address/Address";
 import Orders from "./Components/Orders/Orders";
 import WishListContextProvider from "./Context/WishListContext";
+import WishList from "./Components/WishList/WishList";
 
 //Importing and Routing
 
@@ -73,6 +74,15 @@ let Routers = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Cart />
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "WishList",
+        element: (
+          <ProtectedRoute>
+            <WishList />
           </ProtectedRoute>
         ),
       },

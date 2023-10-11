@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import toast from "react-hot-toast";
 import { WishList } from "../../Context/WishListContext";
-import { BsFillHeartFill } from "react-icons/bs";
+//import { BsFillHeartFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedProducts() {

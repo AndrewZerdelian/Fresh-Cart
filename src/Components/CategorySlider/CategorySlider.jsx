@@ -26,9 +26,9 @@ export default function CategorySlider() {
 
   return (
     <div className="container">
-      {data?.data.data ? (
+      {data?.data?.data ? (
         <Slider {...settings}>
-          {data?.data.data.map((category) => (
+          {data?.data?.data?.map((category) => (
             <div key={category._id} className="container py-5">
               <img
                 src={category.image}

@@ -1,5 +1,14 @@
+import React from 'react'
+
+export default function WishList() {
+  return (
+    <div>WishListItems</div>
+  )
+}
+
+
 /**
- * import React, { useContext, useEffect, useState } from "react";
+   * import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //import Style from "./WishList.module.css";
 

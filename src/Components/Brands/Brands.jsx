@@ -38,7 +38,7 @@ export default function Brands() {
 
           <div className="container">
             <div className="row pt-5">
-              {APIMAPPING.data?.data.map((item) => (
+              {APIMAPPING?.data?.data?.map((item) => (
                 <div
                   key={item._id}
                   className={`col-md-4 d-flex justify-content-center align-items-center shadow p-5 ${Styles.card}`}

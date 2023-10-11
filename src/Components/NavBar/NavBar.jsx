@@ -22,7 +22,7 @@ export default function NavBar() {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
-              <img src={Logo} alt="blabla" />
+              <img src={Logo} alt="FreshCart" />
             </NavLink>
             <button
               className="navbar-toggler"
@@ -72,7 +72,7 @@ export default function NavBar() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="">
+                    <NavLink className="nav-link" to="WishList">
                       WishList
                     </NavLink>
                   </li>

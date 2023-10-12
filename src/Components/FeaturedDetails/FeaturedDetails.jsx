@@ -1,10 +1,11 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { InfinitySpin } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
+import { CartContext } from "../CartContext/CartContext";
 
 export default function FeaturedDetails() {
   var settings = {
@@ -23,6 +24,23 @@ export default function FeaturedDetails() {
   let { data } = useQuery("productDetails", () =>
     GetFeaturedDetails(params.id)
   );
+
+  ////////////////Add To Cart //////////////////
+  const { AddToOCart } = useContext(CartContext);
+  const [Add, setAdd] = useState([]);
+  async function AddtoCartFromFeaturedDetails(productId) {
+    try {
+      const { data } = await AddToOCart(productId);
+      setAdd(data);
+      console.log("Item added to cart" + data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(()=> {
+    
+  },[AddtoCartFromFeaturedDetails])
 
   return (
     <main className=" w-75 ">
@@ -58,8 +76,10 @@ export default function FeaturedDetails() {
                   {data.data.data.ratingsAverage}
                 </span>
               </div>
-              <button className="btn bg-main text-white w-100 mt-2 ">
-                {" "}
+              <button
+              onClick={() => AddtoCartFromFeaturedDetails(data?.data?.data?._id)}
+              className="btn bg-main text-white w-100 mt-2 ">
+                
                 Add To Cart
               </button>
             </div>

@@ -79,7 +79,7 @@ let Routers = createBrowserRouter([
       },
 
       {
-        path: "WishList",
+        path: "Wishlist",
         element: (
           <ProtectedRoute>
             <WishList />

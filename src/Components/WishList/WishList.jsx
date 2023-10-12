@@ -5,6 +5,7 @@ export default function Wishlist() {
   const { GetLoggedUserWishlist, RemoveProductFromWishlist } =
     useContext(WishList);
   const [Rendering, setRendering] = useState([]);
+  
 
   async function LoggedUserWishlist() {
     try {
@@ -31,6 +32,7 @@ export default function Wishlist() {
       console.error(error);
     }
   }
+
 
   return (
     <main className="pt-5">

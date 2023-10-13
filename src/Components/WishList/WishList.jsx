@@ -2,16 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { WishList } from "../../Context/WishListContext";
 
 export default function Wishlist() {
-  const { GetLoggedUserWishlist, RemoveProductFromWishlist } =
+  const { GetLoggedUserWishlist, RemoveProductFromWishlist,setWishListNotifications } =
     useContext(WishList);
+
   const [Rendering, setRendering] = useState([]);
   
-
+  
   async function LoggedUserWishlist() {
     try {
       const { data } = await GetLoggedUserWishlist();
       setRendering(data);
       console.log(data);
+      console.log(data?.data?.length);
+      setWishListNotifications(data?.data?.length);
     } catch (error) {
       console.error("ERR FROM WISHLIST PAGE " + error);
     }
@@ -27,7 +30,7 @@ export default function Wishlist() {
     try {
       const { data } = await RemoveProductFromWishlist(productId);
       window.location.reload();
-      console.log(data);
+      console.log(data?.data?.length);
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +58,7 @@ export default function Wishlist() {
                   />
                 </div>
                 <div className="w-75 px-5">
-                  <h2 className="fw-bolder text-main pt-5"></h2>
+                  <h2 className="fw-bolder text-main pt-5">{Item.title.split(" ").slice(0, 2).join(" ")}</h2>
                   <h2 className="fw-bolder text-main pt-5">
                     {Item.price} EGP{" "}
                   </h2>
@@ -80,4 +83,4 @@ export default function Wishlist() {
     </main>
   );
 }
-//{Item.title.split(" ").slice(0, 2).join(" ")}
+//

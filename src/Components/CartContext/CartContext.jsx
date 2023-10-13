@@ -71,7 +71,7 @@ export default function CreateContextProvider(props) {
           headers: headers,
         }
       );
-      console.log(response.data);
+      //console.log(response.data);
       setCartNotification(response?.data?.numOfCartItems);
       return response;
     } catch (error) {

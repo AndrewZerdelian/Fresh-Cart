@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const WishList = createContext();
 //const BaseURL = `https://ecommerce.routemisr.com`;
@@ -20,7 +20,7 @@ export default function WishListContextProvider({ children }) {
         }
       );
       setWishListNotifications(response?.data?.data?.length);
-      console.log(response?.data?.data?.length);
+      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -35,13 +35,17 @@ export default function WishListContextProvider({ children }) {
           headers,
         }
       );
-      //console.log(response);
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response);
+      console.log(response?.data?.data?.length);
       return response;
     } catch (error) {
       console.error("ERR FROM WISHLIST PAGE " + error);
     }
   }
-
+  useEffect(() => {
+    GetLoggedUserWishlist();
+  }, []); //fix for wishlist notification
   async function RemoveProductFromWishlist(productId) {
     try {
       const response = await axios.delete(
@@ -50,6 +54,8 @@ export default function WishListContextProvider({ children }) {
           headers,
         }
       );
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response);
       console.log(`item go deleted`);
       return response;
     } catch (error) {

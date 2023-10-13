@@ -12,17 +12,16 @@ import { WishList } from "../../Context/WishListContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedProducts() {
-  let { AddToOCart , setCartNotification} = useContext(CartContext);
-  const { AddProductToWishlistAPI } = useContext(WishList);
+  let { AddToOCart } = useContext(CartContext);
+  const { AddProductToWishlistAPI, setWishListNotifications } =
+    useContext(WishList);
   //const [isClick, setClick] = useState(false);
   const [WishListDetails, setWishListDetails] = useState(null);
   const [HeartIcon, SetHeartIcon] = useState(false);
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-    //console.log(response.data.numOfCartItems);
-    //toast.success(response.data.numOfCartItems); // the key for NOTIFICATIONS
-    //setCartNotification(response)
+
     if (response?.data?.status === "success") {
       toast.success(response.data.message, {
         duration: 2000,
@@ -52,18 +51,21 @@ export default function FeaturedProducts() {
     try {
       const response = await AddProductToWishlistAPI(productId);
       setWishListDetails(response);
-      //console.log(response);
-      await SetHeartIcon(!HeartIcon);
+      console.log(response);
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response?.data?.data?.length);
+
+      SetHeartIcon(!HeartIcon);
       toast.success("Item added to wish list", {
         duration: 1000,
       });
     } catch (error) {
       toast.error("Error adding product: ");
-      console.log(error);
+      console.error(error);
     }
   }
+useEffect(()=> {},[])
 
-  useEffect(() => {}, [getWishList]);
 
   return (
     <main>

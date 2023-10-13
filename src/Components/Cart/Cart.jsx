@@ -16,6 +16,10 @@ export default function Cart() {
 
   const [IsLoading, setIsLoading] = useState(false);
   const [ClearUserCart, setClearUserCart] = useState([]);
+  const {setCartNotification} = useContext(CartContext)
+
+
+
   async function updateCartCount(zalabia, count) {
     let { data } = await UpdateCartProduct(zalabia, count);
     setCartDetails(data);
@@ -35,6 +39,8 @@ export default function Cart() {
   async function DeletedItems(productID) {
     const { data } = await RemoveCartItem(productID);
     setCartDetails(data);
+    console.log(data?.numOfCartItems);
+    setCartNotification(data?.numOfCartItems)
   }
 
   useEffect(() => {

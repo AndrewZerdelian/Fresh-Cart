@@ -12,7 +12,7 @@ import { WishList } from "../../Context/WishListContext";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedProducts() {
-  let { AddToOCart } = useContext(CartContext);
+  let { AddToOCart , setCartNotification} = useContext(CartContext);
   const { AddProductToWishlistAPI } = useContext(WishList);
   //const [isClick, setClick] = useState(false);
   const [WishListDetails, setWishListDetails] = useState(null);
@@ -20,8 +20,11 @@ export default function FeaturedProducts() {
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
+    //console.log(response.data.numOfCartItems);
+    //toast.success(response.data.numOfCartItems); // the key for NOTIFICATIONS
+    //setCartNotification(response)
     if (response?.data?.status === "success") {
-      toast.success("Item added successfully", {
+      toast.success(response.data.message, {
         duration: 2000,
       });
     } else {

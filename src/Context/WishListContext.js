@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 
 export const WishList = createContext();
 //const BaseURL = `https://ecommerce.routemisr.com`;
@@ -7,6 +7,7 @@ export const WishList = createContext();
 const UserToken = localStorage.getItem("UserToken");
 const headers = { token: UserToken };
 export default function WishListContextProvider({ children }) {
+  const [WishListNotifications, setWishListNotifications] = useState([0]);
   async function AddProductToWishlistAPI(productId) {
     try {
       let response = await axios.post(
@@ -18,7 +19,8 @@ export default function WishListContextProvider({ children }) {
           headers,
         }
       );
-      console.log(response?.data?.data);
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response?.data?.data?.length);
       return response;
     } catch (error) {
       console.error(error);
@@ -36,7 +38,7 @@ export default function WishListContextProvider({ children }) {
       //console.log(response);
       return response;
     } catch (error) {
-      console.error("ERR FROM WISHLIST PAGE "+error);
+      console.error("ERR FROM WISHLIST PAGE " + error);
     }
   }
 
@@ -61,6 +63,8 @@ export default function WishListContextProvider({ children }) {
         AddProductToWishlistAPI,
         RemoveProductFromWishlist,
         GetLoggedUserWishlist,
+        WishListNotifications,
+        setWishListNotifications,
       }}
     >
       {children}

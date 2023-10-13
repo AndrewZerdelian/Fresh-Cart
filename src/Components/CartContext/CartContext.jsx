@@ -9,11 +9,10 @@ export default function CreateContextProvider(props) {
 
   //klmit token de billzat gaya mn post man copy paste 3ashan el backend mi7tag y2raha
 
-
   const [CartID, setCartID] = useState(null);
   async function GetperchasedCartItems() {
     try {
-      let {data} = await getLoggedUserCart();
+      let { data } = await getLoggedUserCart();
       setCartID(data?.data?._id);
       //console.log(data);
       return data;
@@ -25,15 +24,28 @@ export default function CreateContextProvider(props) {
   useEffect(() => {
     GetperchasedCartItems();
     //console.log("Logging");
-    
   }, []);
+  const [CartNotification, setCartNotification] = useState([0]);
 
+  async function AddToOCart(x) {
+    try {
+      const response = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        {
+          productId: x,
+        },
+        {
+          headers,
+        }
+      );
+      console.log(response.data.numOfCartItems);
+      setCartNotification(response?.data?.numOfCartItems);
+      return response;
+    } catch (error) {}
+  }
 
-
-
-
-
-  function AddToOCart(x) {
+  /**
+ *   function AddToOCart(x) {
     return axios
       .post(
         `https://ecommerce.routemisr.com/api/v1/cart`,
@@ -44,18 +56,42 @@ export default function CreateContextProvider(props) {
           headers,
         }
       )
+      
       .then((response) => response)
       .catch((err) => err);
   }
 
+ */
+
   async function getLoggedUserCart() {
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        {
+          headers: headers,
+        }
+      );
+      console.log(response.data);
+      setCartNotification(response?.data?.numOfCartItems);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /**
+   * originally
+   * async function getLoggedUserCart() {
     return axios
       .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
         headers: headers,
       })
+
       .then((response) => response)
       .catch((err) => err);
   }
+   */
+
   /**
    *  async function getLoggedUserCart() {
     return axios
@@ -66,6 +102,18 @@ export default function CreateContextProvider(props) {
       .catch((err) => err);
   }
    */
+  async function RemoveCartItem(productID) {
+    try {
+      const response = await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
+        headers,
+      })
+      setCartNotification(response?.data?.numOfCartItems);
+      return response
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function RemoveCartItem(productID) {
     return axios
       .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
@@ -136,6 +184,26 @@ export default function CreateContextProvider(props) {
 
   //////////////////// /////////////////////
 
+  //////////////////////Update cart product quantity///////////////////
+
+  async function UpdateCartProductQuantity(COUNTERID, count) {
+    try {
+      const response = await axios.put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${COUNTERID}`,
+        {
+          count: "8",
+        },
+        {
+          headers,
+        }
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   //`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/65212ed67aa5335f22971d72?url=http://localhost:3000`,
   return (
     <CartContext.Provider
@@ -146,7 +214,10 @@ export default function CreateContextProvider(props) {
         RemoveCartItem,
         ClearAllUserCart,
         POSTCheckoutSession,
+        UpdateCartProductQuantity,
         CartID,
+        CartNotification,
+        setCartNotification,
       }}
     >
       {props.children}

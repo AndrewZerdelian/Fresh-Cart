@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
 import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
+import { CartContext } from "../CartContext/CartContext";
+import { WishList } from "../../Context/WishListContext";
 //import { CartContext } from "../CartContext/CartContext";
 
 //import Style from "./NavBar.module.css";
@@ -10,7 +12,8 @@ import { userContext } from "../../Context/UserContext";
 export default function NavBar() {
   let navigate = useNavigate();
   let { UserToken, setUserToken } = useContext(userContext);
-
+  const {CartNotification} = useContext(CartContext)
+  const {WishListNotifications} = useContext(WishList)
   function Logout() {
     localStorage.removeItem("UserToken");
     setUserToken(null);
@@ -19,7 +22,7 @@ export default function NavBar() {
   return (
     <div>
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary pt-3">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
               <img src={Logo} alt="FreshCart" />
@@ -66,14 +69,15 @@ export default function NavBar() {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="Cart">
-                      Cart{" "}
-                      <span className=" p-1 rounded text-black fw-bolder"></span>
+                    <NavLink className="nav-link position-relative" to="Cart">
+                      Cart
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{CartNotification}+</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="WishList">
+                    <NavLink className="nav-link position-relative" to="WishList">
                       WishList
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{WishListNotifications}+</span>
                     </NavLink>
                   </li>
                 </ul>

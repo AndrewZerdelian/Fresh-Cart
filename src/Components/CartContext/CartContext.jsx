@@ -75,7 +75,9 @@ export default function CreateContextProvider(props) {
       setCartNotification(response?.data?.numOfCartItems);
       return response;
     } catch (error) {
-      console.error(error);
+      console.warn(
+        "Cart is empty thats why there is no data to fetch or to show in the notification icon mainly its caused from the clear all items api in cart only  "
+      );
     }
   }
 
@@ -104,11 +106,14 @@ export default function CreateContextProvider(props) {
    */
   async function RemoveCartItem(productID) {
     try {
-      const response = await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productID}`, {
-        headers,
-      })
+      const response = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productID}`,
+        {
+          headers,
+        }
+      );
       setCartNotification(response?.data?.numOfCartItems);
-      return response
+      return response;
     } catch (error) {
       console.log(error);
     }

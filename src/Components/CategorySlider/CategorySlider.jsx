@@ -25,7 +25,7 @@ export default function CategorySlider() {
   //console.log(data?.data.data);
 
   return (
-    <div className="container">
+    <div className="container pb-5">
       {data?.data?.data ? (
         <Slider {...settings}>
           {data?.data?.data?.map((category) => (

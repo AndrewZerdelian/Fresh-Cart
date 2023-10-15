@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../Assets/freshcart-logo.svg";
 import { useContext } from "react";
 import { userContext } from "../../Context/UserContext";
 import { CartContext } from "../CartContext/CartContext";
 import { WishList } from "../../Context/WishListContext";
-//import { CartContext } from "../CartContext/CartContext";
-
-//import Style from "./NavBar.module.css";
 
 export default function NavBar() {
   let navigate = useNavigate();
   let { UserToken, setUserToken } = useContext(userContext);
-  const {CartNotification} = useContext(CartContext)
-  const {WishListNotifications} = useContext(WishList)
+  const { CartNotification } = useContext(CartContext);
+  const { WishListNotifications } = useContext(WishList);
+  const [IsNotification, SetIsNotification] = useState(null);
+
   function Logout() {
     localStorage.removeItem("UserToken");
     setUserToken(null);
@@ -53,11 +52,7 @@ export default function NavBar() {
                       Home
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="Products">
-                      Products
-                    </NavLink>
-                  </li>
+
                   <li className="nav-item">
                     <NavLink className="nav-link" to="Catgories">
                       Catgories
@@ -71,13 +66,28 @@ export default function NavBar() {
                   <li className="nav-item">
                     <NavLink className="nav-link position-relative" to="Cart">
                       Cart
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{CartNotification}+</span>
+                      {CartNotification > 0 ? (
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          {CartNotification}+
+                        </span>
+                      ) : (
+                        ""
+                      )}
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link position-relative" to="WishList">
+                    <NavLink
+                      className="nav-link position-relative"
+                      to="WishList"
+                    >
                       WishList
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{WishListNotifications}+</span>
+                      {CartNotification > 0 ? (
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          {WishListNotifications}+
+                        </span>
+                      ) : (
+                        ""
+                      )}
                     </NavLink>
                   </li>
                 </ul>
@@ -125,6 +135,14 @@ export default function NavBar() {
     </div>
   );
 }
+
+/**
+ * <li className="nav-item">
+                    <NavLink className="nav-link" to="Products">
+                      Products
+                    </NavLink>
+                  </li>
+ */
 /**
  * 
  *  {CartNumber?.numOfCartItems? <span>{CartNumber?.numOfCartItems}</span> : ''}

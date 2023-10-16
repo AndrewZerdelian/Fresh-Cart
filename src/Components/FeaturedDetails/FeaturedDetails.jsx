@@ -6,6 +6,9 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 import { CartContext } from "../CartContext/CartContext";
+import { WishList } from "../../Context/WishListContext";
+import toast from "react-hot-toast";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function FeaturedDetails() {
   var settings = {
@@ -41,7 +44,29 @@ export default function FeaturedDetails() {
   useEffect(()=> {
     
   },[AddtoCartFromFeaturedDetails])
-
+    /////////////////////////Add to WishList //////////////////////////
+    const { AddProductToWishlistAPI, setWishListNotifications } =
+    useContext(WishList);
+    const [WishListDetails, setWishListDetails] = useState(null);
+    const [HeartIcon, SetHeartIcon] = useState(false);
+    async function getWishList(productId) {
+      try {
+        const response = await AddProductToWishlistAPI(productId);
+        setWishListDetails(response);
+        console.log(response);
+        setWishListNotifications(response?.data?.data?.length);
+        console.log(response?.data?.data?.length);
+  
+        SetHeartIcon(!HeartIcon);
+        toast.success("Item added to wish list", {
+          duration: 1000,
+        });
+      } catch (error) {
+        toast.error("Error adding product: ");
+        console.error(error);
+      }
+    }
+    useEffect(() => {}, []);
   return (
     <main className=" w-75 ">
       <Helmet>
@@ -75,6 +100,13 @@ export default function FeaturedDetails() {
                   <i className="fas fa-star rating-color"></i>
                   {data.data.data.ratingsAverage}
                 </span>
+                <div onClick={() => getWishList(data.data.data.id)} className="">
+                      {HeartIcon ? (
+                        <FaHeart color="red" size="2em" />
+                      ) : (
+                        <FaRegHeart color="black" size="2em" />
+                      )}
+                    </div>
               </div>
               <button
               onClick={() => AddtoCartFromFeaturedDetails(data?.data?.data?._id)}

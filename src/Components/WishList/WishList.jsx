@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { WishList } from "../../Context/WishListContext";
+import { CartContext } from "../CartContext/CartContext";
 
 export default function Wishlist() {
   const { GetLoggedUserWishlist, RemoveProductFromWishlist,setWishListNotifications } =
@@ -35,6 +36,23 @@ export default function Wishlist() {
       console.error(error);
     }
   }
+/////////////////////////Add to CART////////////////
+const { AddToOCart } = useContext(CartContext);
+const [Add, setAdd] = useState([]);
+
+async function AddtoCartFromFeaturedDetails(productId) {
+  try {
+    const { data } = await AddToOCart(productId);
+    setAdd(data);
+    console.log("Item added to cart");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+useEffect(()=> {
+  
+},[AddtoCartFromFeaturedDetails])
 
 
   return (
@@ -63,7 +81,8 @@ export default function Wishlist() {
                     {Item.price} EGP{" "}
                   </h2>
                   <div className="py-5 d-flex justify-content-start gap-5">
-                    <button className="btn w-25 bg-primary fw-bolder text-white">
+                    <button onClick={() => AddtoCartFromFeaturedDetails(Item._id)}
+                    className="btn w-25 bg-primary fw-bolder text-white">
                       Add To Cart
                     </button>
                   </div>

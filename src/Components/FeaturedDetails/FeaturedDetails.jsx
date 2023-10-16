@@ -32,7 +32,7 @@ export default function FeaturedDetails() {
     try {
       const { data } = await AddToOCart(productId);
       setAdd(data);
-      console.log("Item added to cart" + data);
+      console.log("Item added to cart");
     } catch (error) {
       console.error(error);
     }

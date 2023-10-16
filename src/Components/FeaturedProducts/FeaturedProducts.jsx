@@ -51,7 +51,6 @@ export default function FeaturedProducts() {
   );
 
   ///////////////////////Searches for Products list //////////////////////////////////////////////////
-  const [query, setQuery] = useState("");
 
   /**
   * //const [Mapping, SetMapping] = useState([])
@@ -69,6 +68,8 @@ export default function FeaturedProducts() {
   } 
   */
   ////////////////////Handle Search from UseQuery //////////////////////////////////////////////////
+  const [query, setQuery] = useState("");
+
   function handleChange(event) {
     setQuery(event.target.value);
     GetFeaturedProducts(event.target.value);

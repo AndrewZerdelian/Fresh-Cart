@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { WishList } from "../../Context/WishListContext";
 //import { BsFillHeartFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { Formik, useFormik } from "formik";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
@@ -37,6 +39,7 @@ export default function FeaturedProducts() {
   }
   //refetch isError
   //isFetching
+
   const { isLoading, data } = useQuery(
     "FeaturedProducts",
     GetFeaturedProducts,
@@ -47,6 +50,33 @@ export default function FeaturedProducts() {
     }
   );
 
+  ///////////////////////Searches for Products list //////////////////////////////////////////////////
+  const [query, setQuery] = useState("");
+
+  /**
+  * //const [Mapping, SetMapping] = useState([])
+  *  async function GetSearchApi(){
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/products`
+      );
+      SetMapping(response?.data?.data)
+      console.log(response);
+      return response
+    } catch (error) {
+      
+    }
+  } 
+  */
+  ////////////////////Handle Search from UseQuery //////////////////////////////////////////////////
+  function handleChange(event) {
+    setQuery(event.target.value);
+    GetFeaturedProducts(event.target.value);
+    event.preventDefault();
+    console.log(query);
+  }
+
+  ////////////////////////////WISHLIST //////////////////////////////////
   async function getWishList(productId) {
     try {
       const response = await AddProductToWishlistAPI(productId);
@@ -64,11 +94,27 @@ export default function FeaturedProducts() {
       console.error(error);
     }
   }
-useEffect(()=> {},[])
-
+  useEffect(() => {}, []);
 
   return (
     <main>
+      <form
+        onSubmit={(event) => event.preventDefault()}
+        className="container py-5 d-flex justify-content-center"
+      >
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              onChange={handleChange}
+              id="title"
+              name="title"
+              type="text"
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+        </div>
+      </form>
       {isLoading ? (
         <div className="mx-auto  d-flex justify-content-center align-items-center py-5 ">
           <InfinitySpin width="300" color="#4fa94d" />
@@ -76,59 +122,153 @@ useEffect(()=> {},[])
       ) : (
         <div className="container py-2 pt-5 ">
           <div className="row">
-            {data?.data?.data?.map((product) => (
-              <div
-                key={product.id}
-                className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
-              >
-                <Link
-                  to={`/FeaturedDetails/${product.id}`}
-                  className="text-decoration-none"
+            {data?.data?.data
+              ?.filter((product) =>
+                product.title.toLowerCase().includes(query.toLowerCase())
+              )
+              .map((product) => (
+                <div
+                  key={product.id}
+                  className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
                 >
-                  <img
-                    src={product.imageCover}
-                    alt={product.title}
-                    className="w-100"
-                  />
-                  <span className="text-main font-sm fw-bolder">
-                    {product.category.name}
-                  </span>
-                  <h2 className="h6">
-                    {product.title.split(" ").slice(0, 2).join(" ")}
-                  </h2>
-                  <div className="d-flex justify-content-between mt-3">
-                    <span>{product.price} EGP</span>
-                    <span>
-                      <i className="fas fa-star rating-color md-2"></i>
-                      {product.ratingsAverage}
-                    </span>
-                  </div>
-                </Link>
-
-                <div className="d-flex justify-content-between">
-                  <button
-                    onClick={() => Addproduct(product.id)}
-                    className="btn bg-main text-white   w-75 btn-sm"
+                  <Link
+                    to={`/FeaturedDetails/${product.id}`}
+                    className="text-decoration-none"
                   >
-                    Add Item
-                  </button>
+                    <img
+                      src={product.imageCover}
+                      alt={product.title}
+                      className="w-100"
+                    />
+                    <span className="text-main font-sm fw-bolder">
+                      {product.category.name}
+                    </span>
+                    <h2 className="h6">
+                      {product.title.split(" ").slice(0, 2).join(" ")}
+                    </h2>
+                    <div className="d-flex justify-content-between mt-3">
+                      <span>{product.price} EGP</span>
+                      <span>
+                        <i className="fas fa-star rating-color md-2"></i>
+                        {product.ratingsAverage}
+                      </span>
+                    </div>
+                  </Link>
 
-                  <div onClick={() => getWishList(product.id)} className="">
-                    {HeartIcon ? (
-                      <FaHeart color="red" size="2em" />
-                    ) : (
-                      <FaRegHeart color="black" size="2em" />
-                    )}
+                  <div className="d-flex justify-content-between">
+                    <button
+                      onClick={() => Addproduct(product.id)}
+                      className="btn bg-main text-white   w-75 btn-sm"
+                    >
+                      Add Item
+                    </button>
+
+                    <div onClick={() => getWishList(product.id)} className="">
+                      {HeartIcon ? (
+                        <FaHeart color="red" size="2em" />
+                      ) : (
+                        <FaRegHeart color="black" size="2em" />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       )}
     </main>
   );
 }
+//////////////////FROM USING FORMIK /////////////////
+/**
+ *
+ * 
+ *  const [searchResults, setSearchResults] = useState([]);
+
+
+  async function SubmitForm(values) {
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/products?title=${values.title}`
+      );
+      console.log(response?.data?.data);
+      setSearchResults(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+    },
+    onSubmit: SubmitForm,
+  });
+      <form
+        onSubmit={formik.handleSubmit}
+        className="container py-5 d-flex justify-content-center"
+      >
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn bg-main w-25 text-white fw-bolder"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+          <ul>
+            {searchResults.map((result) => (
+              <li key={result.id}>{result.title}</li>
+            ))}
+          </ul>
+        
+      
+      <div></div>
+ */
+
+/**FORM 
+ * 
+ *       <form
+        onSubmit={formik.handleSubmit}
+      className="container py-5 d-flex justify-content-center">
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <button
+              
+              className="btn bg-main w-25 text-white fw-bolder"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+ */
 
 /**
  * second choice 

@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { WishList } from "../../Context/WishListContext";
 //import { BsFillHeartFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { Formik, useFormik } from "formik";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
@@ -34,9 +36,11 @@ export default function FeaturedProducts() {
 
   async function GetFeaturedProducts() {
     return await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
+  
   }
   //refetch isError
   //isFetching
+
   const { isLoading, data } = useQuery(
     "FeaturedProducts",
     GetFeaturedProducts,
@@ -64,11 +68,68 @@ export default function FeaturedProducts() {
       console.error(error);
     }
   }
-useEffect(()=> {},[])
+  useEffect(() => {}, []);
+  ///////////////////////Searches for Products list //////////////////////////////////////////////////
+  const [searchResults, setSearchResults] = useState([]);
 
+
+  async function SubmitForm(values) {
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/products?title=${values.title}`
+      );
+      console.log(response?.data?.data);
+      setSearchResults(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+    },
+    onSubmit: SubmitForm,
+  });
 
   return (
     <main>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="container py-5 d-flex justify-content-center"
+      >
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="submit"
+              className="btn bg-main w-25 text-white fw-bolder"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+          <ul>
+            {searchResults.map((result) => (
+              <li key={result.id}>{result.title}</li>
+            ))}
+          </ul>
+        
+      
+      <div></div>
+
       {isLoading ? (
         <div className="mx-auto  d-flex justify-content-center align-items-center py-5 ">
           <InfinitySpin width="300" color="#4fa94d" />
@@ -129,6 +190,95 @@ useEffect(()=> {},[])
     </main>
   );
 }
+//////////////////FROM USING FORMIK /////////////////
+/**
+ * const [searchResults, setSearchResults] = useState([]);
+  
+  async function SubmitForm(values) {
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/products?title=${values.title}`
+      );
+      console.log(response.data.data);
+      setSearchResults(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+    },
+    onSubmit: SubmitForm,
+  });
+
+      <form
+        onSubmit={formik.handleSubmit}
+        className="container py-5 d-flex justify-content-center"
+      >
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn bg-main w-25 text-white fw-bolder">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+      {searchResults.length > 0 && (
+        <div>
+          <h2>Search Results</h2>
+          <ul>
+            {searchResults.map((result) => (
+              <li key={result.id}>{result.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div></div>
+
+ */
+
+/**FORM 
+ * 
+ *       <form
+        onSubmit={formik.handleSubmit}
+      className="container py-5 d-flex justify-content-center">
+        <div className="w-100">
+          <div className="mb-3">
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              className="form-control fw-bold"
+              placeholder="Searching for...."
+            />
+          </div>
+          <div className="d-flex justify-content-center">
+            <button
+              
+              className="btn bg-main w-25 text-white fw-bolder"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+ */
 
 /**
  * second choice 

@@ -1,12 +1,12 @@
 import React from "react";
-//import Style from "./Footer.module.css";
+import Style from "./Footer.module.css";
 
 export default function Footer() {
   function Confirm () {
     console.log("just don't there is no use for this xD ");
   }
   return (
-    <main className="bg-light pt-4">
+    <main className={`bg-light pt-4 //${Style.footer}`}>
       <div className="container">
         <h6 className="h1 fw-bolder text-main">Fresh Cart</h6>
         <p className="h3 fw-bolder ">Get in touch with us </p>

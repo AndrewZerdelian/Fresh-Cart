@@ -3,10 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { ForgetPassword } from "../../Context/ForgotPasswordContext";
 //import Style from "./ForgotPassword.module.css";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
   const { POSTForgotPassword } = useContext(ForgetPassword);
-
+  const Navigate = useNavigate()
   const FogetPaswordFormik = useFormik({
     initialValues: {
       email: " ",
@@ -17,7 +18,7 @@ export default function ForgotPassword() {
           const response = await POSTForgotPassword(values);
 
           toast.success(response.data.message);
-
+          Navigate("/ResetCode");
           console.log(response.data.message);
         } catch (error) {
           toast.error("something went wrong please check your Email info");

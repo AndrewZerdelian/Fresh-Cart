@@ -25,6 +25,8 @@ import Address from "./Components/Address/Address";
 import Orders from "./Components/Orders/Orders";
 import WishListContextProvider from "./Context/WishListContext";
 import WishList from "./Components/WishList/WishList";
+import ResetCode from "./Components/ResetCode/ResetCode";
+import UpdateLoggedUserPassword from "./Components/UpdateLoggedUserPassword/UpdateLoggedUserPassword";
 
 //Importing and Routing
 
@@ -51,6 +53,18 @@ let Routers = createBrowserRouter([
         //PROTECTED ROUTE NEEDED AFTER FINISHING
 
         element: <ForgotPassword />,
+      },
+
+      {
+        path: "ResetCode",
+        //PROTECTED ROUTE NEEDED AFTER FINISHING
+
+        element: <ResetCode />,
+      },
+
+      {
+        path: "UpdateLoggedUserPassword",
+        element: <UpdateLoggedUserPassword />,
       },
 
       {
@@ -86,7 +100,7 @@ let Routers = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      
+
       {
         path: "profile",
         element: (

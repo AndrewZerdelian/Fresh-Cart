@@ -1,63 +1,84 @@
 import React, { useContext } from "react";
 import { ForgetPassword } from "../../Context/ForgotPasswordContext";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateLoggedUserPassword() {
-  const { PUTUpdateLoggedUserPassword } = useContext(ForgetPassword);
-
-  async function ResettingPassword() {
+  let { PUTUpdateLoggedUserPassword } = useContext(ForgetPassword);
+  //let { setUserToken } = useContext(userContext);
+  let Navigate = useNavigate();
+  async function ResetPassword(value) {
     try {
-      const { data } = await PUTUpdateLoggedUserPassword();
-
-      console.log(data);
-    } catch (error) {}
-
-    const PasFormik = useFormik({
-      // <================
-      initialValues: {
-        currentPassword: "",
-        password: "",
-        rePassword: "",
-      },
-
-      onSubmit: ResettingPassword,
-    });
+      const response = await PUTUpdateLoggedUserPassword(
+        value.currentPassword,
+        value.password,
+        value.rePassword
+      );
+      //localStorage.setItem("UserToken", response);
+      //setUserToken(response);
+      console.log(response);
+      localStorage.removeItem("UserToken", response);
+      Navigate("/login");
+      // neet to be refreshed for the token bug !!!
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  let passwordformik = useFormik({
+    initialValues: {
+      currentPassword: "",
+      password: "",
+      rePassword: "",
+    },
+
+    onSubmit: ResetPassword,
+  });
   return (
-    <main>
+    <main className="container pt-5">
       <h2 className="text-center fw-bolder pt-5 text-main">
-        Setting new password
+        Updating password
       </h2>
-      <form onSubmit={PasFormik} className="w-50 mx-auto mt-5">
+      <form onSubmit={passwordformik.handleSubmit}>
         <div className="mb-3">
+          <label htmlFor="currentPassword" className="form-label">
+            currentPassword
+          </label>
+
           <input
+            value={passwordformik.values.currentPassword}
+            onChange={passwordformik.handleChange}
             id="currentPassword"
             name="currentPassword"
             type="password"
             className="form-control"
-            placeholder="currentPassword"
           />
         </div>
         <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            New password
+          </label>
           <input
-            //value={ResetFormik.values.resetCode}
-            //onChange={ResetFormik.handleChange}
-            id="resetCode"
-            name="resetCode"
-            type="text"
+            value={passwordformik.values.password}
+            onChange={passwordformik.handleChange}
+            id="password"
+            name="password"
+            type="password"
             className="form-control"
-            placeholder="password"
           />
         </div>
+
         <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            rePassword
+          </label>
           <input
-            //value={ResetFormik.values.resetCode}
-            //onChange={ResetFormik.handleChange}
-            id="resetCode"
-            name="resetCode"
-            type="text"
+            value={passwordformik.values.rePassword}
+            onChange={passwordformik.handleChange}
+            id="rePassword"
+            name="rePassword"
+            type="password"
             className="form-control"
-            placeholder="rePassword"
           />
         </div>
         <div className="d-flex justify-content-center">

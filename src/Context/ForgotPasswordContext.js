@@ -3,7 +3,8 @@ import React, { createContext } from "react";
 import toast from "react-hot-toast";
 
 export const ForgetPassword = createContext();
-
+const UserToken = localStorage.getItem("UserToken");
+const headers = { token: UserToken };
 export default function ForgotPasswordContextProvider({ children }) {
   async function POSTForgotPassword(email) {
     try {
@@ -39,13 +40,12 @@ export default function ForgotPasswordContextProvider({ children }) {
   /////////////////////PUT Update Logged user password/////////////////
 
   async function PUTUpdateLoggedUserPassword(
-    headers,
     currentPassword,
     password,
     rePassword
   ) {
     try {
-      const { data } = await axios.put(
+      const response = await axios.put(
         `https://ecommerce.routemisr.com/api/v1/users/changeMyPassword`,
         {
           currentPassword,
@@ -58,15 +58,20 @@ export default function ForgotPasswordContextProvider({ children }) {
       );
 
       console.log("logged successfully from Context");
-
-      return data;
+      console.log(headers);
+      return response;
     } catch (error) {
       console.error(error);
     }
   }
+
   return (
     <ForgetPassword.Provider
-      value={{ POSTForgotPassword, POSTVerifyResetCode ,PUTUpdateLoggedUserPassword}}
+      value={{
+        POSTForgotPassword,
+        POSTVerifyResetCode,
+        //PUTUpdateLoggedUserPassword
+      }}
     >
       {children}
     </ForgetPassword.Provider>

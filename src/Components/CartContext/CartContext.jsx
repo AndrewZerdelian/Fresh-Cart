@@ -7,14 +7,13 @@ export default function CreateContextProvider(props) {
   const UserToken = localStorage.getItem("UserToken");
   const headers = { token: UserToken };
 
-  //klmit token de billzat gaya mn post man copy paste 3ashan el backend mi7tag y2raha
-
+  const [CartNotification, setCartNotification] = useState([0]);
   const [CartID, setCartID] = useState(null);
   async function GetperchasedCartItems() {
     try {
       let { data } = await getLoggedUserCart();
       setCartID(data?.data?._id);
-      //console.log(data);
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -23,9 +22,9 @@ export default function CreateContextProvider(props) {
 
   useEffect(() => {
     GetperchasedCartItems();
-    //console.log("Logging");
+    console.log("Logging");
   }, []);
-  const [CartNotification, setCartNotification] = useState([0]);
+  
 
   async function AddToOCart(x) {
     try {

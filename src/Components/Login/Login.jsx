@@ -36,7 +36,7 @@ export default function Register() {
     }
   }
 
-  const PasswordRequirment = /^(?=.*[A-Z])(?=.*[@#$%^&*])(?=.*[0-9])/;
+ const PasswordRequirment = /^(?=.*[A-Z])(?=.*[@#$%^&*])(?=.*[0-9])/;
 
   const validationSchema = YUP.object({
     email: YUP.string()
@@ -48,7 +48,7 @@ export default function Register() {
       `Password must includes Capital letter, Number,and a Symbol`
     ),
   });
-
+  
   const Form = useFormik({
     initialValues: {
       email: "",
@@ -132,7 +132,8 @@ export default function Register() {
               >
                 Submit
               </button>
-              <Link to={`/ForgotPassword`}>
+              
+              <Link to={`/ResetPassword`}> 
               <button className="btn btn-danger mb-3 ">Forget Password</button>
               </Link>
             </div>

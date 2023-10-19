@@ -62,10 +62,12 @@ let Routers = createBrowserRouter([
         element: <ResetCode />,
       },
 
-      {
+      /**
+       *       {
         path: "UpdateLoggedUserPassword",
         element: <UpdateLoggedUserPassword />,
       },
+       */
 
       {
         path: "Brands",

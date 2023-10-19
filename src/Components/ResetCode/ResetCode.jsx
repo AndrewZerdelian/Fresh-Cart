@@ -6,18 +6,18 @@ import { useNavigate } from "react-router-dom";
 
 export default function ResetCode() {
   const { POSTVerifyResetCode } = useContext(ForgetPassword);
-  const Navigate = useNavigate
+  const Navigate = useNavigate();
   //////////workings////////
   async function SubmitingValue(value) {
     try {
       const response = await POSTVerifyResetCode(value.resetCode); // have to be the same as the initial value
       if (response.data.status === "Success") {
-        toast.success(response?.data?.status)
+        toast.success(response?.data?.status);
+        Navigate("/UpdateLoggedUserPassword");  
       }
+
       console.log(response);
-      //Navigate("/")
     } catch (error) {
-      
       console.error(error);
     }
   }

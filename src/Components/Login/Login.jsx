@@ -132,7 +132,8 @@ export default function Register() {
               >
                 Submit
               </button>
-              <Link to={`/ForgotPassword`}>
+              
+              <Link to={`/ResetPassword`}> 
               <button className="btn btn-danger mb-3 ">Forget Password</button>
               </Link>
             </div>

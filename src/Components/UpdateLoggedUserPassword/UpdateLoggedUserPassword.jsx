@@ -93,3 +93,4 @@ export default function UpdateLoggedUserPassword() {
     </main>
   );
 }
+

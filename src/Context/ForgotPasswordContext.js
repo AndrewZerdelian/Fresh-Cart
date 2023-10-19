@@ -42,8 +42,7 @@ export default function ForgotPasswordContextProvider({ children }) {
   async function PUTUpdateLoggedUserPassword(
     currentPassword,
     password,
-    rePassword,
-    
+    rePassword
   ) {
     try {
       const response = await axios.put(
@@ -57,22 +56,21 @@ export default function ForgotPasswordContextProvider({ children }) {
           headers,
         }
       );
-        
+
       console.log("logged successfully from Context");
-        console.log(headers);
+      console.log(headers);
       return response;
     } catch (error) {
       console.error(error);
     }
   }
 
-
   return (
     <ForgetPassword.Provider
       value={{
         POSTForgotPassword,
         POSTVerifyResetCode,
-        PUTUpdateLoggedUserPassword
+        //PUTUpdateLoggedUserPassword
       }}
     >
       {children}

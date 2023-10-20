@@ -136,30 +136,3 @@ export default function NavBar() {
   );
 }
 
-/**
- * <li className="nav-item">
-                    <NavLink className="nav-link" to="Products">
-                      Products
-                    </NavLink>
-                  </li>
- */
-/**
- * 
- *  {CartNumber?.numOfCartItems? <span>{CartNumber?.numOfCartItems}</span> : ''}
- *  const [CartNumber, setCartNumber] = useState(null);
-  let { getLoggedUserCart } = useContext(CartContext);
-
-  async function getNumber() {
-    try {
-      const { data } = await getLoggedUserCart();
-      setCartNumber(data);
-      
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  useEffect(() => {
-    getNumber();
-  }, []); ////////////////////
- */

@@ -11,7 +11,7 @@ import { WishList } from "../../Context/WishListContext";
 //import { BsFillHeartFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Formik, useFormik } from "formik";
-import { clear } from "@testing-library/user-event/dist/clear";
+//import { clear } from "@testing-library/user-event/dist/clear";
 
 export default function FeaturedProducts() {
   let { AddToOCart } = useContext(CartContext);
@@ -23,15 +23,15 @@ export default function FeaturedProducts() {
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-
-    if (response?.data?.status === "success") {
+console.log(response);
+     if (response?.data?.status === "success") {
       toast.success(response.data.message, {
         duration: 2000,
       });
     } else {
       toast.error("Error adding product: ");
     }
-    //console.log(response); // betbain el product
+    console.log(response);
   }
 
   async function GetFeaturedProducts() {

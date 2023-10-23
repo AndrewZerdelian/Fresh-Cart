@@ -19,7 +19,7 @@ export default function UpdateLoggedUserPassword() {
       console.log(response);
       localStorage.removeItem("UserToken", response);
       Navigate("/login");
-      // neet to be refreshed for the token bug !!!
+      
     } catch (error) {
       console.error(error);
     }

@@ -5,14 +5,21 @@ import CategorySlider from "../CategorySlider/CategorySlider";
 import MainSlider from "../MainSlider/MainSlider";
 import SearchBar from "../SearchBar/SearchBar";
 import { CartContext } from "../CartContext/CartContext";
+import { WishList } from "../../Context/WishListContext";
 export default function Home() {
+  const { getLoggedUserCart } = useContext(CartContext);
+  const { GetLoggedUserWishlist } = useContext(WishList);
+  useEffect(() => {
+    GetLoggedUserWishlist();
+    getLoggedUserCart();
+  }, []);
   /**
    * a bug that i am trying to fix witch i have to refresh on homepage every time login
    * due to the fetching is happing from the login page and it cant reach anything
    * then it stops working...
    */
 
-/**
+  /**
  *   let { getLoggedUserCart } = useContext(CartContext);
   async function refetchingData() {
     try {

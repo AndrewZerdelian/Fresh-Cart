@@ -2,18 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { CatContext } from "../../Context/CategoriesContext";
 import Catgoriess from "./Catgories.module.css";
 import { Link } from "react-router-dom";
+import { InfinitySpin } from "react-loader-spinner";
 
 export default function Catgories() {
   const { GetCategoriesList } = useContext(CatContext);
   let [Categories, setCategories] = useState([]);
   //const [Testing, SetTesting] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
 
   async function CatList() {
     try {
+      setIsLoading(true);
       const { data } = await GetCategoriesList();
       // SetTesting(data.data);
       setCategories(data.data);
       //console.log(data.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("we cough an error");
     }
@@ -24,23 +28,35 @@ export default function Catgories() {
   }, []);
 
   return (
-    <main className="">
-      <div className="container pt-5 ">
-        <div className="row ">
-          {Categories.map((x) => (
-            <div
-              key={x._id}
-              className={` col-md-4 cursor-pointer card shadow  d-flex justify-content-center align-items-center ${Catgoriess.card}`}
-            >
-              <Link className="text-decoration-none"
-              to={`/CategoryDetails/${x._id}`}>
-                <img src={x.image} className="w-100 h-75" alt={x.name} />
-                <h3 className="fw-bolder text-center text-main">{x.name}</h3>
-              </Link>
-            </div>
-          ))}
+    <main>
+      {IsLoading ? (
+        <div className="mx-auto d-flex justify-content-center align-items-center py-5">
+          <InfinitySpin width="300" height="300" color="#4fa94d" />
         </div>
-      </div>
+      ) : (
+        
+        <div className="container pt-5 ">
+        <div className="text-center text-main py-5">
+            <h1 className="fw-bolder">Catgories</h1>
+          </div>
+          <div className="row ">
+            {Categories.map((x) => (
+              <div
+                key={x._id}
+                className={` col-md-4 cursor-pointer card shadow  d-flex justify-content-center align-items-center ${Catgoriess.card}`}
+              >
+                <Link
+                  className="text-decoration-none"
+                  to={`/CategoryDetails/${x._id}`}
+                >
+                  <img src={x.image} className="w-100 h-75" alt={x.name} />
+                  <h3 className="fw-bolder text-center text-main">{x.name}</h3>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -12,7 +12,8 @@ export default function Home() {
    * then it stops working...
    */
 
-  let { getLoggedUserCart } = useContext(CartContext);
+/**
+ *   let { getLoggedUserCart } = useContext(CartContext);
   async function refetchingData() {
     try {
       const response = await getLoggedUserCart();
@@ -25,9 +26,10 @@ export default function Home() {
     } catch (error) {}
   }
   useEffect(() => {
-    refetchingData();
-  }, []);
+    
+  }, [refetchingData]);
 
+ */
   return (
     <div>
       <MainSlider />

@@ -8,33 +8,32 @@ export default function CreateContextProvider(props) {
   const headers = { token: UserToken };
 
   const [CartNotification, setCartNotification] = useState([0]);
-  const [CartID, setCartID] = useState(null);
+  const [CartID, setCartID] = useState(null); 
   async function GetperchasedCartItems() {
     try {
       let { data } = await getLoggedUserCart();
       setCartID(data?.data?._id);
       console.log(data);
+      console.log("Logging")
       return data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {
-    GetperchasedCartItems();
-    console.log("Logging");
-  }, []);
+  useEffect(() => {   
+  }, [GetperchasedCartItems]);
   
 
-  async function AddToOCart(x) {
+  async function AddToOCart(productId) {
     try {
       const response = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/cart`,
         {
-          productId: x,
+          productId: productId,
         },
         {
-          headers,
+          headers: { token: localStorage.getItem("UserToken") },
         }
       );
       console.log(response.data.numOfCartItems);

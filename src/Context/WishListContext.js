@@ -16,7 +16,7 @@ export default function WishListContextProvider({ children }) {
           productId, //<=======
         },
         {
-          headers,
+          headers: { token: localStorage.getItem("UserToken") },
         }
       );
       setWishListNotifications(response?.data?.data?.length);
@@ -40,7 +40,7 @@ export default function WishListContextProvider({ children }) {
       console.log(response?.data?.data?.length);
       return response;
     } catch (error) {
-      console.error("ERR FROM WISHLIST PAGE " + error);
+      console.error(error);
     }
   }
   useEffect(() => {

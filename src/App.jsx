@@ -50,28 +50,36 @@ let Routers = createBrowserRouter([
       { path: "Address", element: <Address /> },
       { path: "Orders", element: <Orders /> },
 
-
-      
       {
         path: "ForgotPassword",
         //PROTECTED ROUTE NEEDED AFTER FINISHING
 
-        element: <ForgotPassword />,
+        element: (
+          <ProtectedRoute>
+            <ForgotPassword />
+          </ProtectedRoute>
+        ),
       },
 
       {
         path: "ResetCode",
         //PROTECTED ROUTE NEEDED AFTER FINISHING
 
-        element: <ResetCode />,
+        element: (
+          <ProtectedRoute>
+            <ResetCode />
+          </ProtectedRoute>
+        ),
       },
 
-      /**
-       *       {
+      {
         path: "UpdateLoggedUserPassword",
-        element: <UpdateLoggedUserPassword />,
+        element: (
+          <ProtectedRoute>
+            <UpdateLoggedUserPassword />
+          </ProtectedRoute>
+        ),
       },
-       */
 
       {
         path: "allorders",

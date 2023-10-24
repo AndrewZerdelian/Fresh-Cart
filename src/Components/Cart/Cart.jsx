@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 //import Style from "./Cart.module.css";
 
 export default function Cart() {
@@ -14,15 +15,28 @@ export default function Cart() {
 
   const [CartDetails, setCartDetails] = useState(null);
 
-  const [IsLoading, setIsLoading] = useState(false);
   const [ClearUserCart, setClearUserCart] = useState([]);
-  const {setCartNotification} = useContext(CartContext)
+  const { setCartNotification } = useContext(CartContext);
 
-
-
-  async function updateCartCount(zalabia, count) {
+  /**
+ *   async function updateCartCount(zalabia, count) {
     let { data } = await UpdateCartProduct(zalabia, count);
     setCartDetails(data);
+    console.log(data);
+    toast.success("Product quantity updated successfully.")
+  }
+ * 
+ */
+
+  async function updateCartCount(zalabia, count) {
+    if (count === 0) {
+      DeletedItems(zalabia);
+    } else {
+      let { data } = await UpdateCartProduct(zalabia, count);
+      setCartDetails(data);
+      console.log(data);
+      toast.success("Product quantity updated successfully.");
+    }
   }
 
   async function getCart() {
@@ -40,7 +54,8 @@ export default function Cart() {
     const { data } = await RemoveCartItem(productID);
     setCartDetails(data);
     console.log(data?.numOfCartItems);
-    setCartNotification(data?.numOfCartItems)
+    setCartNotification(data?.numOfCartItems);
+    toast.success("Product removed successfully From your Cart");
   }
 
   useEffect(() => {
@@ -64,14 +79,6 @@ export default function Cart() {
     <main>
       {CartDetails ? (
         <div className="pt-2">
-          <div className="d-flex justify-content-start align-items-center pb-3  container">
-            <button
-              className="btn btn-danger w-25 "
-              onClick={GETClearAllUserCart}
-            >
-              DELETE ALL
-            </button>
-          </div>
           <div className="w-75 mx-auto p-3 bg-main-light">
             <h3>Shopping Cart</h3>
             <h4 className="h6 text-main fw-bolder">
@@ -141,9 +148,12 @@ export default function Cart() {
                 Online Payment
               </Link>
 
-              <Link className="btn bg-main text-white fw-bold  w-25">
-                Cash on Delivery
-              </Link>
+              <button
+                className="btn bg-danger text-white fw-bold "
+                onClick={GETClearAllUserCart}
+              >
+                DELETE ALL
+              </button>
             </div>
           </div>
         </div>

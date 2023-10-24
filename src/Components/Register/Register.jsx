@@ -29,7 +29,7 @@ export default function Register() {
 
   const EgyptianPhoneNumberRegex = /^(010|011|012|015)[0-9]{8}$/;
 
-  const PasswordRequirment = /^(?=.*[A-Z])(?=.*[@#$%^&*])(?=.*[0-9])/;
+  const PasswordRequirment = /^(?=.*[A-Z])[A-Za-z]{1,12}/;
 
   const validationSchema = YUP.object({
     name: YUP.string()
@@ -42,7 +42,7 @@ export default function Register() {
     phone: YUP.string().matches(EgyptianPhoneNumberRegex, `Phone is required`),
     password: YUP.string().matches(
       PasswordRequirment,
-      `Password must includes Capital letter, Number,and a Symbol`
+      `Max of 12 characters and capital letter`
     ),
     rePassword: YUP.string()
       .oneOf([YUP.ref("password")], "password must be Matched")

@@ -41,32 +41,30 @@ export default function FeaturedDetails() {
     }
   }
 
-  useEffect(()=> {
-    
-  },[AddtoCartFromFeaturedDetails])
-    /////////////////////////Add to WishList //////////////////////////
-    const { AddProductToWishlistAPI, setWishListNotifications } =
+  useEffect(() => {}, [AddtoCartFromFeaturedDetails]);
+  /////////////////////////Add to WishList //////////////////////////
+  const { AddProductToWishlistAPI, setWishListNotifications } =
     useContext(WishList);
-    const [WishListDetails, setWishListDetails] = useState(null);
-    const [HeartIcon, SetHeartIcon] = useState(false);
-    async function getWishList(productId) {
-      try {
-        const response = await AddProductToWishlistAPI(productId);
-        setWishListDetails(response);
-        console.log(response);
-        setWishListNotifications(response?.data?.data?.length);
-        console.log(response?.data?.data?.length);
-  
-        SetHeartIcon(!HeartIcon);
-        toast.success("Item added to wish list", {
-          duration: 1000,
-        });
-      } catch (error) {
-        toast.error("Error adding product: ");
-        console.error(error);
-      }
+  const [WishListDetails, setWishListDetails] = useState(null);
+  const [HeartIcon, SetHeartIcon] = useState(false);
+  async function getWishList(productId) {
+    try {
+      const response = await AddProductToWishlistAPI(productId);
+      setWishListDetails(response);
+      console.log(response);
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response?.data?.data?.length);
+
+      SetHeartIcon(!HeartIcon);
+      toast.success("Item added to wish list", {
+        duration: 1000,
+      });
+    } catch (error) {
+      toast.error("Error adding product: ");
+      console.error(error);
     }
-    useEffect(() => {}, []);
+  }
+  useEffect(() => {}, []);
   return (
     <main className=" w-75 ">
       <Helmet>
@@ -100,18 +98,23 @@ export default function FeaturedDetails() {
                   <i className="fas fa-star rating-color"></i>
                   {data.data.data.ratingsAverage}
                 </span>
-                <div onClick={() => getWishList(data.data.data.id)} className="">
-                      {HeartIcon ? (
-                        <FaHeart color="red" size="2em" />
-                      ) : (
-                        <FaRegHeart color="black" size="2em" />
-                      )}
-                    </div>
+                <div
+                  onClick={() => getWishList(data.data.data.id)}
+                  className=""
+                >
+                  {HeartIcon ? (
+                    <FaHeart color="red" size="2em" />
+                  ) : (
+                    <FaRegHeart color="black" size="2em" />
+                  )}
+                </div>
               </div>
               <button
-              onClick={() => AddtoCartFromFeaturedDetails(data?.data?.data?._id)}
-              className="btn bg-main text-white w-100 mt-2 ">
-                
+                onClick={() =>
+                  AddtoCartFromFeaturedDetails(data?.data?.data?._id)
+                }
+                className="btn bg-main text-white w-100 mt-2 "
+              >
                 Add To Cart
               </button>
             </div>
@@ -127,11 +130,3 @@ export default function FeaturedDetails() {
     </main>
   );
 }
-
-/**
- *             <img
-                src={data.data.data.imageCover}
-                alt={data.data.data.title}
-                className="w-75 container"
-              />
- */

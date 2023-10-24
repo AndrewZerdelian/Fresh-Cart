@@ -3,8 +3,8 @@ import React, { createContext } from "react";
 import toast from "react-hot-toast";
 
 export const ForgetPassword = createContext();
-const UserToken = localStorage.getItem("UserToken");
-const headers = { token: UserToken };
+//const UserToken = localStorage.getItem("UserToken");
+//const headers = { token: UserToken };
 export default function ForgotPasswordContextProvider({ children }) {
   async function POSTForgotPassword(email) {
     try {
@@ -53,12 +53,12 @@ export default function ForgotPasswordContextProvider({ children }) {
           rePassword,
         },
         {
-          headers,
+          headers: { token: localStorage.getItem("UserToken") },
         }
       );
 
       console.log("logged successfully from Context");
-      console.log(headers);
+
       return response;
     } catch (error) {
       console.error(error);
@@ -70,7 +70,7 @@ export default function ForgotPasswordContextProvider({ children }) {
       value={{
         POSTForgotPassword,
         POSTVerifyResetCode,
-        //PUTUpdateLoggedUserPassword
+        PUTUpdateLoggedUserPassword
       }}
     >
       {children}

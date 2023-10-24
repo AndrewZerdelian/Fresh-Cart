@@ -23,8 +23,8 @@ export default function FeaturedProducts() {
 
   async function Addproduct(productId) {
     let response = await AddToOCart(productId);
-console.log(response);
-     if (response?.data?.status === "success") {
+    console.log(response);
+    if (response?.data?.status === "success") {
       toast.success(response.data.message, {
         duration: 2000,
       });
@@ -50,23 +50,6 @@ console.log(response);
     }
   );
 
-  ///////////////////////Searches for Products list //////////////////////////////////////////////////
-
-  /**
-  * //const [Mapping, SetMapping] = useState([])
-  *  async function GetSearchApi(){
-    try {
-      const response = await axios.get(
-        `https://ecommerce.routemisr.com/api/v1/products`
-      );
-      SetMapping(response?.data?.data)
-      console.log(response);
-      return response
-    } catch (error) {
-      
-    }
-  } 
-  */
   ////////////////////Handle Search from UseQuery //////////////////////////////////////////////////
   const [query, setQuery] = useState("");
 
@@ -78,25 +61,6 @@ console.log(response);
   }
 
   ////////////////////////////WISHLIST //////////////////////////////////
-  async function getWishList(productId) {
-    try {
-      const response = await AddProductToWishlistAPI(productId);
-      setWishListDetails(response);
-      console.log(response);
-      setWishListNotifications(response?.data?.data?.length);
-      console.log(response?.data?.data?.length);
-
-      SetHeartIcon(!HeartIcon);
-      toast.success("Item added to wish list", {
-        duration: 1000,
-      });
-    } catch (error) {
-      toast.error("Error adding product: ");
-      console.error(error);
-    }
-  }
-  useEffect(() => {}, []);
-
   return (
     <main>
       <form
@@ -156,21 +120,13 @@ console.log(response);
                     </div>
                   </Link>
 
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-center">
                     <button
                       onClick={() => Addproduct(product.id)}
                       className="btn bg-main text-white   w-75 btn-sm"
                     >
                       Add Item
                     </button>
-
-                    <div onClick={() => getWishList(product.id)} className="">
-                      {HeartIcon ? (
-                        <FaHeart color="red" size="2em" />
-                      ) : (
-                        <FaRegHeart color="black" size="2em" />
-                      )}
-                    </div>
                   </div>
                 </div>
               ))}
@@ -180,6 +136,54 @@ console.log(response);
     </main>
   );
 }
+//////////////////////////*****************////////////////
+/**
+ *   async function getWishList(productId) {
+    try {
+      const response = await AddProductToWishlistAPI(productId);
+      setWishListDetails(response);
+      console.log(response);
+      setWishListNotifications(response?.data?.data?.length);
+      console.log(response?.data?.data?.length);
+
+      SetHeartIcon(!HeartIcon);
+      toast.success("Item added to wish list", {
+        duration: 1000,
+      });
+    } catch (error) {
+      toast.error("Error adding product: ");
+      console.error(error);
+    }
+  }
+  useEffect(() => {}, []);
+
+ * 
+ * <div onClick={() => getWishList(product.id)} className="">
+                      {HeartIcon ? (
+                        <FaHeart color="red" size="2em" />
+                      ) : (
+                        <FaRegHeart color="black" size="2em" />
+                      )}
+                    </div>
+ */
+
+///////////////////////Searches for Products list //////////////////////////////////////////////////
+
+/**
+  * //const [Mapping, SetMapping] = useState([])
+  *  async function GetSearchApi(){
+    try {
+      const response = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/products`
+      );
+      SetMapping(response?.data?.data)
+      console.log(response);
+      return response
+    } catch (error) {
+      
+    }
+  } 
+  */
 //////////////////FROM USING FORMIK /////////////////
 /**
  *

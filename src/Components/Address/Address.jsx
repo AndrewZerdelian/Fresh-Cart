@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 
 export default function Address() {
-  let { POSTCheckoutSession ,getLoggedUserCart } = useContext(CartContext);
+  let { POSTCheckoutSession, getLoggedUserCart } = useContext(CartContext);
 
   async function handleAdressSubmit(values) {
     try {
@@ -19,7 +19,7 @@ export default function Address() {
       console.log(error);
     }
   }
-
+  //"http://localhost:3000", local
   let formik = useFormik({
     initialValues: {
       details: "",
@@ -31,25 +31,23 @@ export default function Address() {
   // const response = await POSTCheckoutSession("65212ed67aa5335f22971d72","http://localhost:3000",values);
   /////////////////////////PAYMENT FUNCTIONS //////////////////
 
-  const [CartID, setCartID] = useState(null); 
+  const [CartID, setCartID] = useState(null);
   async function GetperchasedCartItems() {
     try {
       let { data } = await getLoggedUserCart();
       setCartID(data?.data?._id);
       console.log(data);
-      console.log("Logging")
+      console.log("Logging");
       return data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {  
-    GetperchasedCartItems() 
+  useEffect(() => {
+    GetperchasedCartItems();
   }, []);
-  
-  
-  
+
   return (
     <div className="container">
       <form onSubmit={formik.handleSubmit}>

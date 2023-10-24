@@ -36,7 +36,7 @@ export default function Register() {
     }
   }
 
-  const PasswordRequirment = /^(?=.*[A-Z])(?=.*[@#$%^&*])(?=.*[0-9])/;
+  const PasswordRequirment = /^(?=.*[A-Z])[A-Za-z]{1,12}/;
 
   const validationSchema = YUP.object({
     email: YUP.string()
@@ -45,7 +45,7 @@ export default function Register() {
 
     password: YUP.string().matches(
       PasswordRequirment,
-      `Password must includes Capital letter, Number,and a Symbol`
+      `Max of 12 characters and capital letter`
     ),
   });
 

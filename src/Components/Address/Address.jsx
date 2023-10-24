@@ -9,7 +9,7 @@ export default function Address() {
     try {
       const response = await POSTCheckoutSession(
         CartID,
-        "http://localhost:3000",
+        "https://fresh-cart-beta.vercel.app/",
         values
       );
       window.location.href = response?.data.session.url;

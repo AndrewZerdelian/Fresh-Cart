@@ -25,8 +25,11 @@ export default function Layout() {
         </h2>
       </Offline>
       <Online>
-        <NavBar />
-        <Outlet />
+        <div className="min-vh-100">
+          <NavBar />
+          <Outlet />
+        </div>
+
         <Footer />
       </Online>
     </div>

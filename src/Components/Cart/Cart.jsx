@@ -76,7 +76,7 @@ export default function Cart() {
   }
 
   return (
-    <main>
+    <main className="pt-5">
       {CartDetails ? (
         <div className="pt-2">
           <div className="w-75 mx-auto p-3 bg-main-light">

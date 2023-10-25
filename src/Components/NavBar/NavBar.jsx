@@ -18,10 +18,14 @@ export default function NavBar() {
     setUserToken(null);
     navigate("/Login");
   }
+
+  function ChangePassword() {
+    navigate("UpdateLoggedUserPassword");
+  }
   return (
-    <div>
+    <div className="sticky-top">
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary pt-3">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary pt-3 ">
           <div className="container-fluid">
             <NavLink className="navbar-brand" to="/">
               <img src={Logo} alt="FreshCart" />
@@ -104,14 +108,36 @@ export default function NavBar() {
                 </ul>
 
                 {UserToken !== null ? (
-                  <div className="navbar-nav ms-auto  mb-2 mb-lg-0 ">
-                    {" "}
-                    <li className="nav-item">
-                      <button onClick={Logout} className="nav-link" href="/">
-                        Logout
-                      </button>
-                    </li>
-                  </div>
+                  <li className="nav-item dropdown me-5 px-3">
+                    <span
+                      className="nav-link dropdown-toggle"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Options
+                    </span>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <button
+                          onClick={Logout}
+                          className="dropdown-item"
+                          href="/"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={ChangePassword}
+                          className="dropdown-item"
+                          href="/"
+                        >
+                          Change Password
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
                 ) : (
                   <div className="navbar-nav ms-auto mb-2 mb-lg-0 ">
                     <li className="nav-item">
@@ -119,7 +145,6 @@ export default function NavBar() {
                         Login
                       </NavLink>
                     </li>
-
                     <li className="nav-item">
                       <NavLink className="nav-link" to="Register">
                         Register
@@ -135,4 +160,3 @@ export default function NavBar() {
     </div>
   );
 }
-

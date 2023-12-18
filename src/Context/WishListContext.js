@@ -23,7 +23,7 @@ export default function WishListContextProvider({ children }) {
       console.log(response);
       return response;
     } catch (error) {
-      console.error(error);
+      alert.error(error);
     }
   }
 

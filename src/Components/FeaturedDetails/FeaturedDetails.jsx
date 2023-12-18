@@ -103,9 +103,9 @@ export default function FeaturedDetails() {
                   className=""
                 >
                   {HeartIcon ? (
-                    <FaHeart color="red" size="2em" />
+                    <FaHeart color="red" size="2em" className=" cursor-pointer" />
                   ) : (
-                    <FaRegHeart color="black" size="2em" />
+                    <FaRegHeart color="black" size="2em" className="cursor-pointer"/>
                   )}
                 </div>
               </div>

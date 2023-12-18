@@ -87,7 +87,7 @@ export default function FeaturedDetails() {
             <div className="col-md-8">
               <h2 className="h5">{data.data.data.title}</h2>
               <p>{data.data.data.description}</p>
-              <h6 className="text-main">{data.data.data.brand.name}</h6>
+              <h6 className="text-main">{data.data.data.title}</h6>
               <h6 className="text-main">{data.data.data.category.name}</h6>
               <h6 className="text-main fw-bold">
                 Price: {data.data.data.price} EGP{" "}

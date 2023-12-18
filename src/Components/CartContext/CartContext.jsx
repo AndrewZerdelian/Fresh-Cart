@@ -9,7 +9,6 @@ export default function CreateContextProvider(props) {
 
   const [CartNotification, setCartNotification] = useState([0]);
 
-
   async function AddToOCart(productId) {
     try {
       const response = await axios.post(
@@ -23,8 +22,11 @@ export default function CreateContextProvider(props) {
       );
       console.log(response.data.numOfCartItems);
       setCartNotification(response?.data?.numOfCartItems);
+
       return response;
-    } catch (error) {}
+    } catch (error) {
+      alert(`if you are not logged in log in to add to your cart and check out `)
+    }
   }
 
   /**
@@ -63,7 +65,6 @@ export default function CreateContextProvider(props) {
       );
     }
   }
-
 
   async function RemoveCartItem(productID) {
     try {
@@ -118,7 +119,7 @@ export default function CreateContextProvider(props) {
     try {
       const response = await axios.delete(
         `https://ecommerce.routemisr.com/api/v1/cart`,
-        { headers: { token: localStorage.getItem("UserToken") }, }
+        { headers: { token: localStorage.getItem("UserToken") } }
       );
       console.log(response + " Clear ALL ITEMS FROM CONTEST ");
       return response;
@@ -147,7 +148,6 @@ export default function CreateContextProvider(props) {
       console.error(error);
     }
   }
-
 
   async function UpdateCartProductQuantity(COUNTERID, count) {
     try {
@@ -187,7 +187,7 @@ export default function CreateContextProvider(props) {
   );
 }
 
-  /**
+/**
    * originally
    * async function getLoggedUserCart() {
     return axios
@@ -200,7 +200,7 @@ export default function CreateContextProvider(props) {
   }
    */
 
-  /**
+/**
    *  async function getLoggedUserCart() {
     return axios
       .get(`https://ecommerce.routemisr.com/api/v1/cart`, {

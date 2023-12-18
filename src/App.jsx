@@ -1,4 +1,3 @@
-//import React, { useContext, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Login from "./Components/Login/Login";
@@ -38,12 +37,7 @@ let Routers = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoute>
-            {" "}
-            <Home />{" "}
-          </ProtectedRoute>
-        ),
+        element: <Home />,
       },
       { path: "Layout", element: <Layout /> },
       { path: "Login", element: <Login /> },
@@ -52,7 +46,6 @@ let Routers = createBrowserRouter([
 
       {
         path: "ForgotPassword",
-        //PROTECTED ROUTE NEEDED AFTER FINISHING
 
         element: (
           <ProtectedRoute>
@@ -63,7 +56,6 @@ let Routers = createBrowserRouter([
 
       {
         path: "ResetCode",
-        //PROTECTED ROUTE NEEDED AFTER FINISHING
 
         element: (
           <ProtectedRoute>
@@ -114,7 +106,6 @@ let Routers = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
       {
         path: "Wishlist",
         element: (
@@ -136,7 +127,6 @@ let Routers = createBrowserRouter([
         path: "Products",
         element: (
           <ProtectedRoute>
-            {" "}
             <Products />
           </ProtectedRoute>
         ),
@@ -160,12 +150,7 @@ let Routers = createBrowserRouter([
       },
       {
         path: "FeaturedDetails/:id",
-        element: (
-          <ProtectedRoute>
-            {" "}
-            <FeaturedDetails />{" "}
-          </ProtectedRoute>
-        ),
+        element: <FeaturedDetails />,
       },
 
       { path: "*", element: <NotFound /> },
@@ -185,7 +170,6 @@ export default function App() {
                 </div>
               </CatgoriesContextprovider>
             </UserContextProvider>
-
             <Toaster />
           </CreateContextProvider>
         </BrandsContextProvider>

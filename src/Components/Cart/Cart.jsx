@@ -79,7 +79,7 @@ export default function Cart() {
     <main className="pt-5">
       {CartDetails ? (
         <div className="pt-2">
-          <div className="w-75 mx-auto p-3 bg-main-light">
+          <div className="w-100 px-5 mx-auto p-3 bg-main-light">
             <h3>Shopping Cart</h3>
             <h4 className="h6 text-main fw-bolder">
               Cart Items : {CartDetails.numOfCartItems}
@@ -143,9 +143,9 @@ export default function Cart() {
             <div className="d-flex justify-content-between pt-3">
               <Link
                 to={`/Address`}
-                className="btn bg-main text-white fw-bold w-25 "
+                className="btn bg-main text-white fw-bold "
               >
-                Online Payment
+                Payment
               </Link>
 
               <button

@@ -70,39 +70,39 @@ export default function Wishlist() {
           </h3>
         )}
 
-        <div>
+        <div className="">
           {Rendering?.data?.map((Item) => (
             <div key={Item.id}>
-              <div className="d-flex justify-content-start align-items-center py-2">
-                <div className="w-25">
+              <div className="py-2">
+                <div className="col-md-3">
                   <img
                     className="w-100"
                     src={Item.imageCover}
                     alt={Item.title}
                   />
                 </div>
-                <div className="w-75 px-5">
+                <div className="w-100">
                   <h2 className="fw-bolder text-main pt-5">
                     {Item.title
                       ? Item.title.split(" ").slice(0, 2).join(" ")
                       : "Title Not Available"}
                   </h2>
                   <h2 className="fw-bolder text-main pt-5">{Item.price} EGP</h2>
-                  <div className="py-5 d-flex justify-content-start gap-5">
+                  <div className="py-5 d-flex justify-content-around align-items-center">
                     <button
                       onClick={() => AddtoCartFromFeaturedDetails(Item.id)}
-                      className="btn w-25 bg-primary fw-bolder text-white"
+                      className="btn bg-primary fw-bolder text-white"
                     >
                       Add To Cart
                     </button>
+                    <button
+                      onClick={() => DeletingWishList(Item.id)}
+                      className="btn bg-danger text-white fw-bolder text-center"
+                    >
+                      <li className=" text-white fas fa-trash-can"> </li>
+                      Remove Item
+                    </button>
                   </div>
-                  <button
-                    onClick={() => DeletingWishList(Item.id)}
-                    className="btn w-25"
-                  >
-                    <li className=" text-danger fas fa-trash-can"> </li> Remove
-                    Item
-                  </button>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function Wishlist() {
     </main>
   );
 }
-
+//d-flex justify-content-start align-items-center
 /**
  * ADD TO CART WORKS 
  * import React, { useContext, useEffect, useState } from "react";

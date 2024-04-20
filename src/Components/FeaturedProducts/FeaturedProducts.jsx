@@ -94,7 +94,7 @@ export default function FeaturedProducts() {
               .map((product) => (
                 <div
                   key={product.id}
-                  className={`col-md-3 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
+                  className={`col-md-3 col-6 py-3 px-2 cursor-pointer scale-25 ${Style.card}`}
                 >
                   <Link
                     to={`/FeaturedDetails/${product.id}`}

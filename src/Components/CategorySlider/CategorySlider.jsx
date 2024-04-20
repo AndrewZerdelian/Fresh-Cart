@@ -33,7 +33,7 @@ export default function CategorySlider() {
               <img
                 src={category.image}
                 className="w-100 "
-                height={250}
+                height={150}
                 alt="cat"
               />
             </div>

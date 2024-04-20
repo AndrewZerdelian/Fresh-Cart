@@ -65,14 +65,14 @@ export default function Register() {
   //{Form.errors.name && Form.touched.name && <div className="alert p-2 mt-2 alert-danger">{Form.errors.name}</div>}
 
   return (
-    <main className="w-75 mx-auto py-4">
-      <h2 className="mx-auto"> Registration form </h2>
+    <main className="w-100 mx-auto py-4">
+      <h2 className="text-center"> Registration form </h2>
       {Error ? (
         <div className="alert p-2 mt-2 alert-danger w-75 mx-auto">{Error}</div>
       ) : (
         ""
       )}
-      <form onSubmit={Form.handleSubmit} className="w-25 mx-auto mt-5">
+      <form onSubmit={Form.handleSubmit} className="w-75 mx-auto mt-5">
         <div className="mb-3">
           <input
             value={Form.values.name}

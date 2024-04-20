@@ -99,12 +99,12 @@ export default function NavBar() {
                 ""
               )}
 
-              <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
-                <ul className="nav-item d-flex align-items-center ms-auto">
-                  <li className="fab fa-facebook mx-2"></li>
-                  <li className="fab fa-twitter mx-2"></li>
-                  <li className="fab fa-instagram mx-2"></li>
-                  <li className="fab fa-tiktok mx-2"></li>
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <ul className="nav-item d-flex align-items-end justify-content-center p-1 ms-auto d-none d-lg-block ">
+                  <li className="fab fa-facebook mx-2 align-text-bottom"></li>
+                  <li className="fab fa-twitter mx-2 align-text-bottom"></li>
+                  <li className="fab fa-instagram mx-2 align-text-bottom"></li>
+                  <li className="fab fa-tiktok mx-2 align-text-bottom"></li>
                 </ul>
 
                 {UserToken !== null ? (

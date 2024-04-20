@@ -70,7 +70,7 @@ export default function Register() {
       ) : (
         ""
       )}
-      <form onSubmit={Form.handleSubmit} className="w-50 mx-auto mt-5">
+      <form onSubmit={Form.handleSubmit} className="w-75 mx-auto mt-5">
         <div className="mb-3">
           <input
             value={Form.values.email}
@@ -140,6 +140,14 @@ export default function Register() {
               </Link>
             </div>
           )}
+        </div>
+        <div className="text-center fw-bold pt-5">
+          <p className="text-main">
+            you can use this Guest credentials for testing below.
+          </p>
+          <p>UserName: Guest12345</p>
+          <p>Email: pojob36798@iliken.com</p>
+          <p>Password: Guest12345</p>
         </div>
       </form>
     </main>

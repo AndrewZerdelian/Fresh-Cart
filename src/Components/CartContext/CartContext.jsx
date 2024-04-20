@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext();
 
@@ -25,7 +26,8 @@ export default function CreateContextProvider(props) {
 
       return response;
     } catch (error) {
-      alert(`if you are not logged in log in to add to your cart and check out `)
+      //alert(`if you are not logged in log in to add to your cart and check out `)
+      toast.error(`if you are not logged in, log in to add to your cart and check out `)
     }
   }
 

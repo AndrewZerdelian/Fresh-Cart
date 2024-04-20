@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const WishList = createContext();
 //const BaseURL = `https://ecommerce.routemisr.com`;
@@ -21,9 +22,15 @@ export default function WishListContextProvider({ children }) {
       );
       setWishListNotifications(response?.data?.data?.length);
       console.log(response);
+      /**
+       * toast.success("Item added to wish list", {
+        duration: 1000,
+      });
+       */
       return response;
     } catch (error) {
       console.error(error);
+      //toast.error("Error adding product: ");
     }
   }
 
@@ -43,7 +50,7 @@ export default function WishListContextProvider({ children }) {
       console.error(error);
     }
   }
- /**
+  /**
   *  useEffect(() => {
     
   }, []); //fix for wishlist notification

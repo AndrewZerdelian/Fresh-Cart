@@ -54,11 +54,31 @@ export default function FeaturedDetails() {
       console.log(response);
       setWishListNotifications(response?.data?.data?.length);
       console.log(response?.data?.data?.length);
-
+      /**
+ *       if (response?.data?.data?.length) {
+        SetHeartIcon(!HeartIcon);
+        
+          toast.success("Item added to wish list", {
+          duration: 1000,
+        });
+   
+      }
+      if (HeartIcon === true) {
+        toast.success("Item Removed From wish list", {
+          duration: 1000,
+        });
+      }
+ */
       SetHeartIcon(!HeartIcon);
-      toast.success("Item added to wish list", {
-        duration: 1000,
-      });
+      if (HeartIcon === true) {
+        toast.error("Item Removed From wish list", {
+          duration: 1000,
+        });
+      } else {
+        toast.success("Item added to wish list", {
+          duration: 1000,
+        });
+      }
     } catch (error) {
       toast.error("Error adding product: ");
       console.error(error);
@@ -66,7 +86,7 @@ export default function FeaturedDetails() {
   }
   useEffect(() => {}, []);
   return (
-    <main className=" w-75 ">
+    <main className="w-100 p-2 ">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Products Details</title>
@@ -84,7 +104,7 @@ export default function FeaturedDetails() {
                 ))}
               </Slider>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8 pt-5 px-4">
               <h2 className="h5">{data.data.data.title}</h2>
               <p>{data.data.data.description}</p>
               <h6 className="text-main">{data.data.data.title}</h6>

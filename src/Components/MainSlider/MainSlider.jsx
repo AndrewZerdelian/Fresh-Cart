@@ -4,8 +4,8 @@ import Slider1 from "../../Assets/slider-image-1.jpeg";
 import Slider2 from "../../Assets/slider-image-2.jpeg";
 import Slider3 from "../../Assets/slider-image-3.jpeg";
 
-import Slider5 from "../../Assets/grocery-banner-2.jpeg"
-import Slider6 from "../../Assets/slider-2.jpeg"
+import Slider5 from "../../Assets/grocery-banner-2.jpeg";
+import Slider6 from "../../Assets/slider-2.jpeg";
 import Slider from "react-slick";
 //import Blog1 from "../../Assets/blog-img-1.jpeg";
 //import Blog2 from "../../Assets/blog-img-2.jpeg";
@@ -21,8 +21,8 @@ export default function MainSlider() {
   };
   return (
     <main>
-      <div className="row ">
-        <div className="col-md-12 container ">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-10">
           <Slider {...settings}>
             <img height={300} src={Slider1} className="w-100" alt="slider" />
             <img height={300} src={Slider2} className="w-100" alt="slider" />
@@ -31,12 +31,10 @@ export default function MainSlider() {
             <img height={300} src={Slider6} className="w-100" alt="slider" />
           </Slider>
         </div>
-      
       </div>
     </main>
   );
 }
-
 
 /** OLD
          * import React from "react";

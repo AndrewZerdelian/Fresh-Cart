@@ -25,7 +25,33 @@ export default function CategorySlider() {
   //console.log(data?.data.data);
 
   return (
-    <div className="container pb-5">
+    <main>
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-10">
+          {data?.data?.data ? (
+            <Slider {...settings}>
+              {data?.data?.data?.map((category) => (
+                <div key={category._id} className="container py-5">
+                  <img
+                    src={category.image}
+                    className="w-100"
+                    height={150}
+                    alt="cat"
+                  />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/**old
+ * <div className="container pb-5">
       {data?.data?.data ? (
         <Slider {...settings}>
           {data?.data?.data?.map((category) => (
@@ -43,5 +69,4 @@ export default function CategorySlider() {
         ""
       )}
     </div>
-  );
-}
+ */
